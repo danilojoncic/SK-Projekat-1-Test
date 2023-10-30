@@ -1,5 +1,6 @@
 package view;
 
+import controller.FilterController;
 import controller.ImportController;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.*;
 public class MainFrame extends JFrame {
 
     JButton importDugme;
+    FilterController filterController;
     JButton exportDugme;
     JButton editDugme;
     JButton changeDugme;
@@ -137,7 +139,7 @@ public class MainFrame extends JFrame {
 
 
 
-
+        filterController = new FilterController(this);
         this.setVisible(true);
     }
 
@@ -228,4 +230,5 @@ public class MainFrame extends JFrame {
     public void setModel(DefaultTableModel model) {
         this.model = model;
     }
+
 }

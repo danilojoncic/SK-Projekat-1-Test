@@ -31,7 +31,7 @@ public class ImportController{
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser jFileChooser = new JFileChooser();
-                jFileChooser.setCurrentDirectory(new File("."));
+                jFileChooser.setCurrentDirectory(new File("/Desktop"));
                 int response = jFileChooser.showOpenDialog(null);
 
                 if(response == JFileChooser.APPROVE_OPTION){
@@ -50,7 +50,7 @@ public class ImportController{
                        DefaultTableModel model = new DefaultTableModel(kolone, 0);
 
 
-
+                        int index = 1;
                         for (Dogadjaj s : raspored.getDogadjaji()) {
                             List<String> lista = s.getStavkeDogadjaja();
                             String[] red = new String[lista.size()];
@@ -58,6 +58,7 @@ public class ImportController{
 
 
                             model.addRow(red);
+                            System.out.println(index++);
                         }
 
                         mainFrame.getTabelaRasporeda().setModel(model);
