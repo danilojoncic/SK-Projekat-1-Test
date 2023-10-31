@@ -43,7 +43,7 @@ public class ImportController{
                         //"D:\\Racunarski Fakultet Beograd\\Treca Godina\\5. Semestar\\Softverske komponente\\src\\main\\resources\\csv.csv"
                         System.out.println(raspored);
                         System.out.println(raspored.getHeader().toString());
-                       List<String> header = raspored.getHeader().getStavkeDogadjaja();
+                        List<String> header = raspored.getHeader().getStavkeDogadjaja();
                        String[] kolone = new String[header.size()];
                        kolone = header.toArray(kolone);
 

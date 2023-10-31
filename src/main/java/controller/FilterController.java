@@ -36,11 +36,11 @@ public class FilterController {
                 String[] kolone = new String[header.size()];
                 kolone = header.toArray(kolone);
                 List<Dogadjaj> dogs = raspored.vratiFiltrirano(text);
-                try {
-                    raspored = csvCitac.refreshRaspored(dogs);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+                if(!(dogs == null)){
+                    raspored = raspored.refresh(dogs);
                 }
+
+
                 DefaultTableModel model = new DefaultTableModel(kolone, 0);
 
 
