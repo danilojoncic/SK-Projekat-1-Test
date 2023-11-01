@@ -38,20 +38,28 @@ public class ImportController{
                     CSVCitac csvCitac = new CSVCitac();
 
                     try {
-                        System.out.println(jFileChooser.getSelectedFile().getAbsolutePath());
+
                         raspored = csvCitac.citaj(jFileChooser.getSelectedFile().getAbsolutePath());
+                        mainFrame.setPutanjaDoTrenutnogRasporeda(jFileChooser.getSelectedFile().getAbsolutePath());
+                        mainFrame.setNestoUcitano(true);
                         //"D:\\Racunarski Fakultet Beograd\\Treca Godina\\5. Semestar\\Softverske komponente\\src\\main\\resources\\csv.csv"
                         System.out.println(raspored);
                         System.out.println(raspored.getHeader().toString());
                         List<String> header = raspored.getHeader().getStavkeDogadjaja();
                        String[] kolone = new String[header.size()];
                        kolone = header.toArray(kolone);
+                       mainFrame.getComboBox().setVisible(true);
+                        for (String s : header) {
+                            mainFrame.getComboBox().addItem(s);
+
+                        }
 
                        DefaultTableModel model = new DefaultTableModel(kolone, 0);
 
 
                         int index = 1;
                         for (Dogadjaj s : raspored.getDogadjaji()) {
+
                             List<String> lista = s.getStavkeDogadjaja();
                             String[] red = new String[lista.size()];
                             red = lista.toArray(red);

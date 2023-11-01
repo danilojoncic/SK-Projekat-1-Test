@@ -1,5 +1,7 @@
 package view;
 
+import controller.DeleteCollumnController;
+import controller.ExportController;
 import controller.FilterController;
 import controller.ImportController;
 
@@ -8,6 +10,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
+
+    String putanjaDoTrenutnogRasporeda;
+    boolean nestoUcitano = false;
 
     JButton importDugme;
     FilterController filterController;
@@ -22,10 +27,14 @@ public class MainFrame extends JFrame {
     JRadioButton imp2RB;
     JTextArea filterTA;
     ImportController importController;
+    ExportController exportController;
+    DeleteCollumnController deleteCollumnController;
 
     JScrollPane jScrollPane;
 
     DefaultTableModel model;
+
+    JComboBox comboBox;
 
 
     public MainFrame(){
@@ -44,7 +53,7 @@ public class MainFrame extends JFrame {
 
         importDugme = new JButton("Import");
         exportDugme = new JButton("Export");
-        editDugme = new JButton("Edit view");
+        editDugme = new JButton("Delete collumn");
         changeDugme = new JButton("Add/Remove/Change");
         filterDugme = new JButton("Filtriraj");
 
@@ -55,6 +64,8 @@ public class MainFrame extends JFrame {
 
 
         importController = new ImportController(this);
+        exportController = new ExportController(this);
+
 
 
 
@@ -69,6 +80,9 @@ public class MainFrame extends JFrame {
         imp1RB = new JRadioButton("Format 1");
         imp2RB = new JRadioButton("Format 2");
 
+        comboBox = new JComboBox<>();
+        comboBox.setVisible(false);
+
         ButtonGroup izborImplementacije = new ButtonGroup();
         izborImplementacije.add(imp1RB);
         izborImplementacije.add(imp2RB);
@@ -81,13 +95,6 @@ public class MainFrame extends JFrame {
         JPanel panel3 = new JPanel();
         JPanel panel4 = new JPanel();
         JPanel panel5 = new JPanel();
-
-
-        panel1.setBackground(Color.BLUE);
-        panel2.setBackground(Color.BLACK);
-        panel3.setBackground(Color.GREEN);
-        panel4.setBackground(Color.GRAY);
-        panel5.setBackground(Color.MAGENTA);
 
 
         panel1.setPreferredSize(new Dimension(130,130));
@@ -106,6 +113,8 @@ public class MainFrame extends JFrame {
         panel2.add(miniPanel1,BorderLayout.NORTH);
         panel2.add(miniPanel2,BorderLayout.CENTER);
 
+        deleteCollumnController = new DeleteCollumnController(this);
+
 
 
         panel4.add(importDugme);
@@ -118,12 +127,14 @@ public class MainFrame extends JFrame {
 
         panel3.add(changeDugme);
         panel3.add(editDugme);
+        panel3.add(comboBox);
 
-        tabelaRasporeda.setPreferredSize(new Dimension(600,400));
+//        tabelaRasporeda.setPreferredSize(new Dimension(600,400));
 
         jScrollPane = new JScrollPane(tabelaRasporeda);
 
         jScrollPane.setPreferredSize(new Dimension(600,400));
+        jScrollPane.setViewportView(tabelaRasporeda);
         jScrollPane.setVisible(true);
         panel5.add(jScrollPane);
 
@@ -231,4 +242,27 @@ public class MainFrame extends JFrame {
         this.model = model;
     }
 
+    public String getPutanjaDoTrenutnogRasporeda() {
+        return putanjaDoTrenutnogRasporeda;
+    }
+
+    public void setPutanjaDoTrenutnogRasporeda(String putanjaDoTrenutnogRasporeda) {
+        this.putanjaDoTrenutnogRasporeda = putanjaDoTrenutnogRasporeda;
+    }
+
+    public boolean isNestoUcitano() {
+        return nestoUcitano;
+    }
+
+    public void setNestoUcitano(boolean nestoUcitano) {
+        this.nestoUcitano = nestoUcitano;
+    }
+
+    public JComboBox getComboBox() {
+        return comboBox;
+    }
+
+    public void setComboBox(JComboBox comboBox) {
+        this.comboBox = comboBox;
+    }
 }

@@ -14,6 +14,7 @@ import java.util.List;
 public class FilterController {
     MainFrame mainFrame;
 
+
     public FilterController(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         attachListeners();
@@ -26,44 +27,58 @@ public class FilterController {
                 Raspored raspored;
                 String text = mainFrame.getFilterTA().getText();
                 CSVCitac csvCitac = new CSVCitac();
-                try {
-                    raspored = csvCitac.citaj("C:\\Users\\jonci\\Desktop\\neBrisati.csv");
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+                if(mainFrame.isNestoUcitano()){
+                    try {
+                        raspored = csvCitac.citaj(mainFrame.getPutanjaDoTrenutnogRasporeda());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                    List<String> header = raspored.getHeader().getStavkeDogadjaja();
+                    String[] kolone = new String[header.size()];
+                    kolone = header.toArray(kolone);
+//                    List<Dogadjaj> dogs = raspored.vratiFiltrirano(text);
+//                    if(!(dogs == null)){
+//                        raspored = raspored.refresh(dogs);
+//                    }
+
+
+                    DefaultTableModel model = new DefaultTableModel(kolone, 0);
+
+
+                    int index = 1;
+                    for (Dogadjaj s : raspored.getDogadjaji()) {
+                        boolean flag = false;
+                        for (String s1 : s.getStavkeDogadjaja()) {
+                            if(s1.contains(text))
+                                flag = true;
+                        }
+                        if(flag){
+                            List<String> lista = s.getStavkeDogadjaja();
+                            String[] red = new String[lista.size()];
+                            red = lista.toArray(red);
+
+
+                            model.addRow(red);
+                            System.out.println(index++);
+                        }
+
+                    }
+                    mainFrame.getTabelaRasporeda().revalidate();
+
+                    mainFrame.getTabelaRasporeda().setModel(model);
+                    // mainFrame.getTabelaRasporeda().setPreferredScrollableViewportSize(new Dimension(600, 400));
+
+                    mainFrame.revalidate();
+                    mainFrame.repaint();
+
+                }
                 }
 
-                List<String> header = raspored.getHeader().getStavkeDogadjaja();
-                String[] kolone = new String[header.size()];
-                kolone = header.toArray(kolone);
-                List<Dogadjaj> dogs = raspored.vratiFiltrirano(text);
-                if(!(dogs == null)){
-                    raspored = raspored.refresh(dogs);
                 }
 
 
-                DefaultTableModel model = new DefaultTableModel(kolone, 0);
-
-
-                int index = 1;
-                for (Dogadjaj s : raspored.getDogadjaji()) {
-                    List<String> lista = s.getStavkeDogadjaja();
-                    String[] red = new String[lista.size()];
-                    red = lista.toArray(red);
-
-
-                    model.addRow(red);
-                    System.out.println(index++);
-                }
-                mainFrame.getTabelaRasporeda().revalidate();
-
-                mainFrame.getTabelaRasporeda().setModel(model);
-                // mainFrame.getTabelaRasporeda().setPreferredScrollableViewportSize(new Dimension(600, 400));
-
-                mainFrame.revalidate();
-                mainFrame.repaint();
-
-            }
-        });
+        );
     }
 
 }
