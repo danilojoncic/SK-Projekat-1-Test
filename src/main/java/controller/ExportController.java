@@ -2,8 +2,8 @@ package controller;
 
 import model.boljeRijesenje.Dogadjaj;
 import model.boljeRijesenje.Raspored;
-import org.raf.CSVCitac;
-import org.raf.CSVPisac;
+import org.raf.csvimpl1.CSVCitac;
+import org.raf.csvimpl1.CSVPisac;
 import view.ExportFrame;
 import view.MainFrame;
 

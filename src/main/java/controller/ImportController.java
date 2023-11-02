@@ -2,7 +2,8 @@ package controller;
 
 import model.boljeRijesenje.Dogadjaj;
 import model.boljeRijesenje.Raspored;
-import org.raf.CSVCitac;
+
+import org.raf.csvimpl1.CSVCitac;
 import view.MainFrame;
 
 import javax.swing.*;
