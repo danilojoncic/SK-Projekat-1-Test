@@ -1,9 +1,6 @@
 package view;
 
-import controller.DeleteCollumnController;
-import controller.ExportController;
-import controller.FilterController;
-import controller.ImportController;
+import controller.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +12,7 @@ public class MainFrame extends JFrame {
     boolean nestoUcitano = false;
 
     JButton importDugme;
-    FilterController filterController;
+    ControllManager controllManager;
     JButton exportDugme;
     JButton editDugme;
     JButton changeDugme;
@@ -26,9 +23,6 @@ public class MainFrame extends JFrame {
     JRadioButton imp1RB;
     JRadioButton imp2RB;
     JTextArea filterTA;
-    ImportController importController;
-    ExportController exportController;
-    DeleteCollumnController deleteCollumnController;
 
     JScrollPane jScrollPane;
 
@@ -61,14 +55,6 @@ public class MainFrame extends JFrame {
         editDugme.setFocusable(false);
         changeDugme.setFocusable(false);
         exportDugme.setFocusable(false);
-
-
-        importController = new ImportController(this);
-        exportController = new ExportController(this);
-
-
-
-
 
         model = new DefaultTableModel();
 
@@ -113,7 +99,7 @@ public class MainFrame extends JFrame {
         panel2.add(miniPanel1,BorderLayout.NORTH);
         panel2.add(miniPanel2,BorderLayout.CENTER);
 
-        deleteCollumnController = new DeleteCollumnController(this);
+
 
 
 
@@ -150,7 +136,7 @@ public class MainFrame extends JFrame {
 
 
 
-        filterController = new FilterController(this);
+        controllManager = new ControllManager(this);
         this.setVisible(true);
     }
 
@@ -228,10 +214,6 @@ public class MainFrame extends JFrame {
 
     public void setFilterTA(JTextArea filterTA) {
         this.filterTA = filterTA;
-    }
-
-    public void setImportController(ImportController importController) {
-        this.importController = importController;
     }
 
     public void setjScrollPane(JScrollPane jScrollPane) {
