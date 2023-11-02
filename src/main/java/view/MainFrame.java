@@ -30,6 +30,9 @@ public class MainFrame extends JFrame {
 
     JComboBox comboBox;
 
+    JButton postaviDatum;
+
+
 
     public MainFrame(){
         initialise();
@@ -50,6 +53,8 @@ public class MainFrame extends JFrame {
         editDugme = new JButton("Delete collumn");
         changeDugme = new JButton("Add/Remove/Change");
         filterDugme = new JButton("Filtriraj");
+        postaviDatum = new JButton("Postavi datume");
+
 
         importDugme.setFocusable(false);
         editDugme.setFocusable(false);
@@ -106,8 +111,10 @@ public class MainFrame extends JFrame {
         panel4.add(importDugme);
         panel4.add(exportDugme);
 
+
         panel1.add(imp1RB);
         panel1.add(imp2RB);
+        panel1.add(postaviDatum);
 
 
 
@@ -246,5 +253,13 @@ public class MainFrame extends JFrame {
 
     public void setComboBox(JComboBox comboBox) {
         this.comboBox = comboBox;
+    }
+
+    public JButton getPostaviDatum() {
+        return postaviDatum;
+    }
+
+    public void setPostaviDatum(JButton postaviDatum) {
+        this.postaviDatum = postaviDatum;
     }
 }

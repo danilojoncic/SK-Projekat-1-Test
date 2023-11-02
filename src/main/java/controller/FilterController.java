@@ -2,7 +2,6 @@ package controller;
 
 import model.boljeRijesenje.Dogadjaj;
 import model.boljeRijesenje.Raspored;
-import org.raf.csvimpl1.CSVCitac;
 import view.MainFrame;
 
 import javax.swing.table.DefaultTableModel;
@@ -26,7 +25,6 @@ public class FilterController {
             public void actionPerformed(ActionEvent e) {
                 Raspored raspored;
                 String text = mainFrame.getFilterTA().getText();
-                CSVCitac csvCitac = new CSVCitac();
                 if(mainFrame.isNestoUcitano()){
 
 

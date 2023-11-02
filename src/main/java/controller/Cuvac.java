@@ -5,6 +5,8 @@ import model.boljeRijesenje.Raspored;
 import java.util.List;
 
 public class Cuvac {
+
+
     Raspored raspored;
     List<String> header;
     private static Cuvac instance = null;
