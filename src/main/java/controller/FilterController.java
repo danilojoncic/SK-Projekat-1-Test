@@ -28,21 +28,16 @@ public class FilterController {
                 String text = mainFrame.getFilterTA().getText();
                 CSVCitac csvCitac = new CSVCitac();
                 if(mainFrame.isNestoUcitano()){
-                    try {
-                        raspored = csvCitac.citaj(mainFrame.getPutanjaDoTrenutnogRasporeda());
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
 
-                    List<String> header = raspored.getHeader().getStavkeDogadjaja();
+
+                    //rijesenje
+
+                    raspored = Cuvac.getInstance().getRaspored();
+                    List<String> header = Cuvac.getInstance().getHeader();
+
+
                     String[] kolone = new String[header.size()];
                     kolone = header.toArray(kolone);
-//                    List<Dogadjaj> dogs = raspored.vratiFiltrirano(text);
-//                    if(!(dogs == null)){
-//                        raspored = raspored.refresh(dogs);
-//                    }
-
-
                     DefaultTableModel model = new DefaultTableModel(kolone, 0);
 
 
@@ -65,20 +60,13 @@ public class FilterController {
 
                     }
                     mainFrame.getTabelaRasporeda().revalidate();
-
                     mainFrame.getTabelaRasporeda().setModel(model);
-                    // mainFrame.getTabelaRasporeda().setPreferredScrollableViewportSize(new Dimension(600, 400));
-
                     mainFrame.revalidate();
                     mainFrame.repaint();
 
                 }
-                }
-
-                }
-
-
-        );
+            }
+        });
     }
 
 }

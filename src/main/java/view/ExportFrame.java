@@ -32,9 +32,9 @@ public class ExportFrame extends JFrame {
 
     public void initialise(){
         this.setTitle("SK Projekat 1 - Univerzalni Raspored");
-        this.setSize(300,150);
+        this.setSize(300,100);
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ImageIcon icon = new ImageIcon("src/icon.png");
         this.setIconImage(icon.getImage());
 

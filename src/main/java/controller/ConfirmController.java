@@ -30,13 +30,9 @@ public class ConfirmController {
                 String text = exportFrame.getText();
                 if (exportFrame.getRbCSV().isSelected()) {
                     CSVCitac csvCitac = new CSVCitac();
-                    try {
-                        raspored = csvCitac.citaj(exportFrame.getFilePath());
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    raspored = Cuvac.getInstance().getRaspored();
 
-                    List<String> header = raspored.getHeader().getStavkeDogadjaja();
+                    List<String> header = Cuvac.getInstance().getHeader();
                     String[] kolone = new String[header.size()];
                     kolone = header.toArray(kolone);
                     List<Dogadjaj> dogs = raspored.vratiFiltrirano(text);
@@ -45,10 +41,8 @@ public class ConfirmController {
                         CSVPisac csvPisac = new CSVPisac();
                         csvPisac.napisi(raspored);
                     }
-
-
                 }
-
+                exportFrame.dispose();
             }
         });
     }

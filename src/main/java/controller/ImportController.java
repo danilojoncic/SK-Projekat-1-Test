@@ -43,7 +43,15 @@ public class ImportController{
                         raspored = csvCitac.citaj(jFileChooser.getSelectedFile().getAbsolutePath());
                         mainFrame.setPutanjaDoTrenutnogRasporeda(jFileChooser.getSelectedFile().getAbsolutePath());
                         mainFrame.setNestoUcitano(true);
+
+                        //RIJESENJE NASEG PROBLEMA SA PONOVNIM CITANJEM SADA JE SVE SELF SUFIFICIENT
+                        //ili kako god da se ta rijec pise
+                        Cuvac.getInstance().setRaspored(raspored);
+                        Cuvac.getInstance().setHeader(raspored.getHeader().getStavkeDogadjaja());
                         //"D:\\Racunarski Fakultet Beograd\\Treca Godina\\5. Semestar\\Softverske komponente\\src\\main\\resources\\csv.csv"
+
+
+
                         System.out.println(raspored);
                         System.out.println(raspored.getHeader().toString());
                         List<String> header = raspored.getHeader().getStavkeDogadjaja();
