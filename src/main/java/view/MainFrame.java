@@ -10,6 +10,7 @@ public class MainFrame extends JFrame {
 
     String putanjaDoTrenutnogRasporeda;
     boolean nestoUcitano = false;
+    JButton refreshDugme;
 
     JButton importDugme;
     ControllManager controllManager;
@@ -17,6 +18,7 @@ public class MainFrame extends JFrame {
     JButton editDugme;
     JButton changeDugme;
     JButton filterDugme;
+    JButton obrisiDogadjajDugme;
 
     JTable tabelaRasporeda;
 
@@ -60,7 +62,8 @@ public class MainFrame extends JFrame {
         editDugme.setFocusable(false);
         changeDugme.setFocusable(false);
         exportDugme.setFocusable(false);
-
+        refreshDugme = new JButton("Refresh");
+        obrisiDogadjajDugme = new JButton("Obrisi izabrano");
         model = new DefaultTableModel();
 
         tabelaRasporeda = new JTable(model);
@@ -109,6 +112,7 @@ public class MainFrame extends JFrame {
 
 
         panel4.add(importDugme);
+        panel4.add(refreshDugme);
         panel4.add(exportDugme);
 
 
@@ -121,6 +125,7 @@ public class MainFrame extends JFrame {
         panel3.add(changeDugme);
         panel3.add(editDugme);
         panel3.add(comboBox);
+        panel3.add(obrisiDogadjajDugme);
 
 //        tabelaRasporeda.setPreferredSize(new Dimension(600,400));
 
@@ -239,6 +244,14 @@ public class MainFrame extends JFrame {
         this.putanjaDoTrenutnogRasporeda = putanjaDoTrenutnogRasporeda;
     }
 
+    public JButton getObrisiDogadjajDugme() {
+        return obrisiDogadjajDugme;
+    }
+
+    public void setObrisiDogadjajDugme(JButton obrisiDogadjajDugme) {
+        this.obrisiDogadjajDugme = obrisiDogadjajDugme;
+    }
+
     public boolean isNestoUcitano() {
         return nestoUcitano;
     }
@@ -261,5 +274,13 @@ public class MainFrame extends JFrame {
 
     public void setPostaviDatum(JButton postaviDatum) {
         this.postaviDatum = postaviDatum;
+    }
+
+    public JButton getRefreshDugme() {
+        return refreshDugme;
+    }
+
+    public void setRefreshDugme(JButton refreshDugme) {
+        this.refreshDugme = refreshDugme;
     }
 }
