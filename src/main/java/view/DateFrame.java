@@ -2,15 +2,19 @@ package view;
 
 import com.toedter.calendar.JDateChooser;
 import controller.Cuvac;
+import controller.ImportController;
 import model.boljeRijesenje.Datumi;
 import model.boljeRijesenje.Dogadjaj;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class DateFrame extends JFrame {
 
@@ -48,12 +52,14 @@ public class DateFrame extends JFrame {
         this.add(ucitajDatumeDugme);
 
         krajniDatum.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(mainFrame.isNestoUcitano()){
                     Date date = jDateChooser.getDate();
                     Cuvac.getInstance().getRaspored().setDatumDoKadaVazi(date);
                     System.out.println(Cuvac.getInstance().getRaspored().getDatumDoKadaVazi().toString());
+
                 }
                 else{
                     JOptionPane.showMessageDialog(null,"Morate prvo da ucitate raspored");
@@ -81,22 +87,31 @@ public class DateFrame extends JFrame {
         ucitajDatumeDugme.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LocalDate localDate = null;
+                Date date = null;
+                DefaultTableModel model = (DefaultTableModel)mainFrame.getTabelaRasporeda().getModel();
+
                 for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
                     for(String s : dogadjaj.getStavkeDogadjaja()){
                         for(int i = 0; i < dani.length;i++){
                             if(s.equals(dani[i])){
                                 int index = Datumi.getInstance().vratiIndeksZaDan(s);
-                                localDate = getDatumZaDanUNedelji(index,Cuvac.getInstance().getRaspored().getPocetni());
+                                date = getDatumZaDanUNedelji(index,Cuvac.getInstance().getRaspored().getDatumOdKadaVazi());
 
 
 
                             }
                         }
                     }
-                    dogadjaj.getStavkeDogadjaja().add(localDate.toString());
+                    dogadjaj.getStavkeDogadjaja().add(date.toString());
+
+
+
                 }
                 Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
+                najjace();
+
+                mainFrame.getTabelaRasporeda().revalidate();
+                mainFrame.getTabelaRasporeda().repaint();
                 for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
                     System.out.println(dogadjaj);
                 }
@@ -110,17 +125,48 @@ public class DateFrame extends JFrame {
         this.setVisible(true);
 
     }
-    public LocalDate getDatumZaDanUNedelji(int indexDana, LocalDate pocetniDatum) {
+    public Date getDatumZaDanUNedelji(int indexDana, Date pocetniDatum) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(pocetniDatum);
+
         if (indexDana < 0 || indexDana > 6) {
             throw new IllegalArgumentException("Index dana u nedelji treba biti u opsegu od 0 do 6.");
         }
 
-        // Pronalaženje razlike između traženog dana i dana početnog datuma
-        int razlika = (indexDana + 7 - pocetniDatum.getDayOfWeek().getValue()) % 7;
+        int trenutniDan = calendar.get(Calendar.DAY_OF_WEEK) - 1; // Dan u nedelji gde je 0 ponedeljak, 1 utorak, ...
+        int razlika = (indexDana + 7 - trenutniDan) % 7;
+        calendar.add(Calendar.DATE, razlika);
 
-        // Dodavanje razlike dana na početni datum kako bi se dobio traženi dan u nedelji
-        LocalDate trazeniDatum = pocetniDatum.plusDays(razlika);
-        return trazeniDatum;
+        return calendar.getTime();
+    }
+
+    public void najjace(){
+        java.util.List<String> header = Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja();
+        String[] kolone = new String[header.size()];
+        kolone = header.toArray(kolone);
+
+
+
+        DefaultTableModel model = new DefaultTableModel(kolone, 0);
+
+
+        int index = 1;
+        for (Dogadjaj s : Cuvac.getInstance().getRaspored().getDogadjaji()) {
+
+            List<String> lista = s.getStavkeDogadjaja();
+            String[] red = new String[lista.size()];
+            red = lista.toArray(red);
+
+
+            model.addRow(red);
+            System.out.println(index++);
+        }
+
+        mainFrame.getTabelaRasporeda().setModel(model);
+        mainFrame.getTabelaRasporeda().repaint();
+
+        mainFrame.revalidate();
+        mainFrame.repaint();
     }
 
 
