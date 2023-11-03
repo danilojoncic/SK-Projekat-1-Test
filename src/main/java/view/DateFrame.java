@@ -3,6 +3,7 @@ package view;
 import com.toedter.calendar.JDateChooser;
 import controller.Cuvac;
 import controller.ImportController;
+import controller.Ubacivac;
 import model.boljeRijesenje.Datumi;
 import model.boljeRijesenje.Dogadjaj;
 
@@ -35,7 +36,7 @@ public class DateFrame extends JFrame {
         this.setTitle("Izaberite datum");
         this.setSize(400,280);
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ImageIcon icon = new ImageIcon("src/icon.png");
         this.setIconImage(icon.getImage());
         krajniDatum = new JButton("Kraj");
@@ -88,40 +89,27 @@ public class DateFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Date date = null;
-                DefaultTableModel model = (DefaultTableModel)mainFrame.getTabelaRasporeda().getModel();
-
                 for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
                     for(String s : dogadjaj.getStavkeDogadjaja()){
                         for(int i = 0; i < dani.length;i++){
                             if(s.equals(dani[i])){
                                 int index = Datumi.getInstance().vratiIndeksZaDan(s);
                                 date = getDatumZaDanUNedelji(index,Cuvac.getInstance().getRaspored().getDatumOdKadaVazi());
-
-
-
                             }
                         }
                     }
+                    System.out.println(date);
                     dogadjaj.getStavkeDogadjaja().add(date.toString());
-
-
-
                 }
+                Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja().add("Datum");
                 Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
-                najjace();
-
-                mainFrame.getTabelaRasporeda().revalidate();
-                mainFrame.getTabelaRasporeda().repaint();
+                Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
                 for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
                     System.out.println(dogadjaj);
                 }
-                //nadjem indeks dana na osnovu stringa iz stavke dogadjaja
-                //za zadati indeks zajedno sa pocetkom vazenje ja treba da nadjem datum
-                //taj datum kastujem u string koji dodajem u stavku dogadjdja kao novo polje
+
             }
         });
-
-
         this.setVisible(true);
 
     }
@@ -139,35 +127,4 @@ public class DateFrame extends JFrame {
 
         return calendar.getTime();
     }
-
-    public void najjace(){
-        java.util.List<String> header = Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja();
-        String[] kolone = new String[header.size()];
-        kolone = header.toArray(kolone);
-
-
-
-        DefaultTableModel model = new DefaultTableModel(kolone, 0);
-
-
-        int index = 1;
-        for (Dogadjaj s : Cuvac.getInstance().getRaspored().getDogadjaji()) {
-
-            List<String> lista = s.getStavkeDogadjaja();
-            String[] red = new String[lista.size()];
-            red = lista.toArray(red);
-
-
-            model.addRow(red);
-            System.out.println(index++);
-        }
-
-        mainFrame.getTabelaRasporeda().setModel(model);
-        mainFrame.getTabelaRasporeda().repaint();
-
-        mainFrame.revalidate();
-        mainFrame.repaint();
-    }
-
-
 }
