@@ -27,20 +27,12 @@ public class ConfirmController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Raspored raspored;
-                String text = exportFrame.getText();
                 if (exportFrame.getRbCSV().isSelected()) {
-                    CSVCitac csvCitac = new CSVCitac();
                     raspored = Cuvac.getInstance().getRaspored();
-
                     List<String> header = Cuvac.getInstance().getHeader();
                     String[] kolone = new String[header.size()];
-                    kolone = header.toArray(kolone);
-                    List<Dogadjaj> dogs = raspored.vratiFiltrirano(text);
-                    if (!(dogs == null)) {
-                        raspored = raspored.refresh(dogs);
-                        CSVPisac csvPisac = new CSVPisac();
-                        csvPisac.napisi(raspored);
-                    }
+                    CSVPisac csvPisac = new CSVPisac();
+                    csvPisac.napisi(raspored);
                 }
                 exportFrame.dispose();
             }

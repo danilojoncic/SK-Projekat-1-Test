@@ -40,52 +40,17 @@ public class ImportController{
 
                     try {
 
+                        //to do za kasnije
                         raspored = csvCitac.citaj(jFileChooser.getSelectedFile().getAbsolutePath());
                         mainFrame.setPutanjaDoTrenutnogRasporeda(jFileChooser.getSelectedFile().getAbsolutePath());
                         mainFrame.setNestoUcitano(true);
-
                         //RIJESENJE NASEG PROBLEMA SA PONOVNIM CITANJEM SADA JE SVE SELF SUFIFICIENT
                         //ili kako god da se ta rijec pise
                         Cuvac.getInstance().setRaspored(raspored);
                         Cuvac.getInstance().setHeader(raspored.getHeader().getStavkeDogadjaja());
-                        //"D:\\Racunarski Fakultet Beograd\\Treca Godina\\5. Semestar\\Softverske komponente\\src\\main\\resources\\csv.csv"
-
-
-
                         System.out.println(raspored);
                         System.out.println(raspored.getHeader().toString());
-                        List<String> header = raspored.getHeader().getStavkeDogadjaja();
-                       String[] kolone = new String[header.size()];
-                       kolone = header.toArray(kolone);
-                       mainFrame.getComboBox().setVisible(true);
-                        for (String s : header) {
-                            mainFrame.getComboBox().addItem(s);
-
-                        }
-
-                       DefaultTableModel model = new DefaultTableModel(kolone, 0);
-
-
-                        int index = 1;
-                        for (Dogadjaj s : raspored.getDogadjaji()) {
-
-                            List<String> lista = s.getStavkeDogadjaja();
-                            String[] red = new String[lista.size()];
-                            red = lista.toArray(red);
-
-
-                            model.addRow(red);
-                            System.out.println(index++);
-                        }
-
-                        mainFrame.getTabelaRasporeda().setModel(model);
-                       // mainFrame.getTabelaRasporeda().setPreferredScrollableViewportSize(new Dimension(600, 400));
-
-                        mainFrame.revalidate();
-                        mainFrame.repaint();
-
-
-
+                        Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().raspored);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }

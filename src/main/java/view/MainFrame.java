@@ -43,7 +43,7 @@ public class MainFrame extends JFrame {
     public void initialise(){
         this.setTitle("SK Projekat 1 - Univerzalni Raspored");
         this.setSize(900,750);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ImageIcon icon = new ImageIcon("src/icon.png");
         this.setIconImage(icon.getImage());
@@ -243,6 +243,11 @@ public class MainFrame extends JFrame {
     public void setPutanjaDoTrenutnogRasporeda(String putanjaDoTrenutnogRasporeda) {
         this.putanjaDoTrenutnogRasporeda = putanjaDoTrenutnogRasporeda;
     }
+
+
+
+
+
 
     public JButton getObrisiDogadjajDugme() {
         return obrisiDogadjajDugme;

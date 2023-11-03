@@ -16,18 +16,10 @@ public class ExportFrame extends JFrame {
     JRadioButton rbJSON = new JRadioButton("JSON");
 
     JButton confirm = new JButton("Confirm");
-
     ButtonGroup buttonGroup = new ButtonGroup();
-
     ConfirmController confirmController;
-
-    String text;
-    String filePath;
-
-    public ExportFrame(String text,String filePath){
+    public ExportFrame(){
         initialise();
-        this.text = text;
-        this.filePath = filePath;
     }
 
     public void initialise(){
@@ -52,7 +44,6 @@ public class ExportFrame extends JFrame {
         buttonGroup.add(rbCSV);
         buttonGroup.add(rbPDF);
         buttonGroup.add(rbJSON);
-
 
 
         this.setVisible(true);
@@ -88,21 +79,5 @@ public class ExportFrame extends JFrame {
 
     public void setConfirm(JButton confirm) {
         this.confirm = confirm;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
     }
 }

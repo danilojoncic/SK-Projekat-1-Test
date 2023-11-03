@@ -26,9 +26,8 @@ public class ExportController {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                Raspored raspored;
-                String text = mainFrame.getFilterTA().getText();
                 if (mainFrame.isNestoUcitano())
-                    new ExportFrame(text,mainFrame.getPutanjaDoTrenutnogRasporeda());
+                    new ExportFrame();
 //                CSVCitac csvCitac = new CSVCitac();
 //                if (mainFrame.isNestoUcitano()) {
 //                    try {

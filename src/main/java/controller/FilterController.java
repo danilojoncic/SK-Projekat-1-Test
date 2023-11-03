@@ -23,14 +23,11 @@ public class FilterController {
         mainFrame.getFilterDugme().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Raspored raspored;
                 String text = mainFrame.getFilterTA().getText();
+                Raspored raspored = Cuvac.getInstance().raspored;
                 if(mainFrame.isNestoUcitano()){
-
-
                     //rijesenje
 
-                    raspored = Cuvac.getInstance().getRaspored();
                     List<String> header = Cuvac.getInstance().getHeader();
 
 
@@ -57,11 +54,11 @@ public class FilterController {
                         }
 
                     }
-                    mainFrame.getTabelaRasporeda().revalidate();
                     mainFrame.getTabelaRasporeda().setModel(model);
-                    mainFrame.revalidate();
-                    mainFrame.repaint();
-
+                    mainFrame.getTabelaRasporeda().revalidate();
+                    mainFrame.getTabelaRasporeda().repaint();
+//                    raspored.refresh(raspored.vratiFiltrirano(text));
+//                    Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,raspored);
                 }
             }
         });
