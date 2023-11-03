@@ -12,7 +12,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +25,7 @@ public class DateFrame extends JFrame {
     MainFrame mainFrame;
     JButton krajniDatum;
     JButton ucitajDatumeDugme;
-    private String[] dani = {"PON","UTO","SRI","CET","PET"};
+    private ArrayList<String> dani = new ArrayList<>();
 
     JDateChooser jDateChooser;
     JButton potvrdi;
@@ -44,9 +47,13 @@ public class DateFrame extends JFrame {
         ucitajDatumeDugme = new JButton("Ucitaj u model");
         jDateChooser = new JDateChooser();
         potvrdi = new JButton("Pocetak");
-
-
-
+        dani.add("PON");
+        dani.add("UTO");
+        dani.add("SRE");
+        dani.add("ČET");
+        dani.add("PET");
+        dani.add("SUB");
+        dani.add("NED");
         this.add(jDateChooser);
         this.add(potvrdi);
         this.add(krajniDatum);
@@ -80,26 +87,22 @@ public class DateFrame extends JFrame {
                 else{
                     JOptionPane.showMessageDialog(null,"Morate prvo da ucitate raspored");
                 }
-
-
             }
         });
 
         ucitajDatumeDugme.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Create a SimpleDateFormat object to format the date
+                SimpleDateFormat dateFormat = new SimpleDateFormat("d.M");
                 Date date = null;
                 for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
-                    for(String s : dogadjaj.getStavkeDogadjaja()){
-                        for(int i = 0; i < dani.length;i++){
-                            if(s.equals(dani[i])){
-                                int index = Datumi.getInstance().vratiIndeksZaDan(s);
-                                date = getDatumZaDanUNedelji(index,Cuvac.getInstance().getRaspored().getDatumOdKadaVazi());
-                            }
-                        }
-                    }
+                    int index = vratiIndeksZaDan(dogadjaj.getStavkeDogadjaja().get(4));
+                    date = calculateDateForDayOfWeek(Cuvac.getInstance().getRaspored().getDatumOdKadaVazi(),index);
+
                     System.out.println(date);
-                    dogadjaj.getStavkeDogadjaja().add(date.toString());
+                    String datum = dateFormat.format(date);
+                    dogadjaj.getStavkeDogadjaja().add(datum);
                 }
                 Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja().add("Datum");
                 Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
@@ -107,24 +110,53 @@ public class DateFrame extends JFrame {
                 for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
                     System.out.println(dogadjaj);
                 }
-
             }
         });
         this.setVisible(true);
-
     }
-    public Date getDatumZaDanUNedelji(int indexDana, Date pocetniDatum) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(pocetniDatum);
+    public int vratiIndeksZaDan(String dan){
+        return dani.indexOf(dan);
+    }
 
+
+    public Date getDatumZaDanUNedelji(int indexDana, Date pocetniDatum) {
         if (indexDana < 0 || indexDana > 6) {
             throw new IllegalArgumentException("Index dana u nedelji treba biti u opsegu od 0 do 6.");
         }
 
-        int trenutniDan = calendar.get(Calendar.DAY_OF_WEEK) - 1; // Dan u nedelji gde je 0 ponedeljak, 1 utorak, ...
-        int razlika = (indexDana + 7 - trenutniDan) % 7;
-        calendar.add(Calendar.DATE, razlika);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(pocetniDatum);
+
+        int trenutniDan = calendar.get(Calendar.DAY_OF_WEEK) - 1; // Day of the week where 0 is Monday, 1 is Tuesday, ...
+
+        while (trenutniDan != indexDana) {
+            calendar.add(Calendar.DATE, 1); // Move to the next day
+            trenutniDan = (trenutniDan + 1) % 7;
+        }
 
         return calendar.getTime();
     }
+
+    public static Date calculateDateForDayOfWeek(Date startDate, int dayOfWeek) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(startDate);
+
+        if (dayOfWeek < 0 || dayOfWeek > 6) {
+            throw new IllegalArgumentException("Day of the week should be between 0 (Sunday) and 6 (Saturday).");
+        }
+
+        int startDay = cal.get(Calendar.DAY_OF_WEEK) - 1; // Convert to 0-based indexing
+
+        int diff = dayOfWeek - startDay;
+
+        if (diff <= 0) {
+            diff += 7;
+        }
+
+        cal.add(Calendar.DAY_OF_YEAR, diff);
+
+        return cal.getTime();
+    }
+
+
 }
