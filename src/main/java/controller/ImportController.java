@@ -3,7 +3,9 @@ package controller;
 import model.boljeRijesenje.Dogadjaj;
 import model.boljeRijesenje.Raspored;
 
+import org.raf.Implemetacija1;
 import org.raf.csvimpl1.CSVCitac;
+import org.raf.jsonimpl1.JSONCitac;
 import view.MainFrame;
 
 import javax.swing.*;
@@ -34,26 +36,20 @@ public class ImportController{
                 JFileChooser jFileChooser = new JFileChooser();
                 jFileChooser.setCurrentDirectory(new File("/Desktop"));
                 int response = jFileChooser.showOpenDialog(null);
-
+                Implemetacija1 implemetacija1 = new Implemetacija1();
                 if(response == JFileChooser.APPROVE_OPTION){
-                    CSVCitac csvCitac = new CSVCitac();
-
-                    try {
-
-                        //to do za kasnije
-                        raspored = csvCitac.citaj(jFileChooser.getSelectedFile().getAbsolutePath());
-                        mainFrame.setPutanjaDoTrenutnogRasporeda(jFileChooser.getSelectedFile().getAbsolutePath());
-                        mainFrame.setNestoUcitano(true);
-                        //RIJESENJE NASEG PROBLEMA SA PONOVNIM CITANJEM SADA JE SVE SELF SUFIFICIENT
-                        //ili kako god da se ta rijec pise
-                        Cuvac.getInstance().setRaspored(raspored);
-                        Cuvac.getInstance().setHeader(raspored.getHeader().getStavkeDogadjaja());
-                        System.out.println(raspored);
-                        System.out.println(raspored.getHeader().toString());
-                        Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().raspored);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    //u buduce svaki rad nad modelom bi zahtjevao metode iz implementaicje
+                    //implemetacija1.ucitajRaspored(jFileChooser.getSelectedFile().getAbsolutePath().toString());
+                    //raspored = implemetacija1.getRaspored();
+                    implemetacija1.ucitajRaspored(jFileChooser.getSelectedFile().getAbsolutePath());
+                    raspored = implemetacija1.getRaspored();
+                    System.out.println(raspored.getDogadjaji());
+                    mainFrame.setNestoUcitano(true);
+                    Cuvac.getInstance().setRaspored(raspored);
+                    Cuvac.getInstance().setHeader(raspored.getHeader().getStavkeDogadjaja());
+                    System.out.println(raspored);
+                    System.out.println(raspored.getHeader().toString());
+                    Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().raspored);
                 }
             }
         });
