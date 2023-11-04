@@ -7,6 +7,7 @@ import org.raf.csvimpl1.CSVPisac;
 import view.ExportFrame;
 import view.MainFrame;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,8 @@ public class ExportController {
 //                Raspored raspored;
                 if (mainFrame.isNestoUcitano())
                     new ExportFrame();
+                else
+                    JOptionPane.showMessageDialog(null,"Prvo uctajte raspored");
 //                CSVCitac csvCitac = new CSVCitac();
 //                if (mainFrame.isNestoUcitano()) {
 //                    try {
