@@ -14,6 +14,7 @@ public class ControllManager {
 
     DateController dateController;
     DeleteDogadjajController deleteDogadjajController;
+    DodajController dodajController;
     RefreshController refreshController;
 
     public ControllManager(MainFrame mainFrame) {
@@ -23,6 +24,7 @@ public class ControllManager {
     }
 
     private void initOthers(){
+        dodajController = new DodajController(mainFrame);
         deleteDogadjajController = new DeleteDogadjajController(mainFrame);
         deleteCollumnController = new DeleteColumnController(mainFrame);
         exportController = new ExportController(mainFrame);

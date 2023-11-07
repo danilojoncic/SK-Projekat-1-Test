@@ -24,7 +24,7 @@ public class MainFrame extends JFrame {
 
     JRadioButton imp1RB;
     JRadioButton imp2RB;
-    JTextArea filterTA;
+    JTextField filterTA;
 
     JScrollPane jScrollPane;
 
@@ -53,7 +53,7 @@ public class MainFrame extends JFrame {
         importDugme = new JButton("Import");
         exportDugme = new JButton("Export");
         editDugme = new JButton("Delete collumn");
-        changeDugme = new JButton("Add/Remove/Change");
+        changeDugme = new JButton("Dodaj");
         filterDugme = new JButton("Filtriraj");
         postaviDatum = new JButton("Postavi datume");
 
@@ -81,8 +81,8 @@ public class MainFrame extends JFrame {
         izborImplementacije.add(imp1RB);
         izborImplementacije.add(imp2RB);
 
-        filterTA = new JTextArea();
-        filterTA.setSize(25,10);
+        filterTA = new JTextField();
+        filterTA.setSize(50,10);
 
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
@@ -184,7 +184,7 @@ public class MainFrame extends JFrame {
         return imp2RB;
     }
 
-    public JTextArea getFilterTA() {
+    public JTextField getFilterTA() {
         return filterTA;
     }
 
@@ -224,7 +224,7 @@ public class MainFrame extends JFrame {
         this.imp2RB = imp2RB;
     }
 
-    public void setFilterTA(JTextArea filterTA) {
+    public void setFilterTA(JTextField filterTA) {
         this.filterTA = filterTA;
     }
 
