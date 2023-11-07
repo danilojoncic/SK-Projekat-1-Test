@@ -1,6 +1,5 @@
 package controller;
 
-import controller.Cuvac;
 import view.MainFrame;
 
 import javax.swing.*;
@@ -23,25 +22,22 @@ public class DeleteColumnController {
             public void actionPerformed(ActionEvent e) {
                 if (mainFrame.isNestoUcitano()) {
                     int index = mainFrame.getComboBox().getSelectedIndex();
-
-                    if (index != -1) {
-                        // Delete the selected column from the JTable's model
-                        DefaultTableModel model = (DefaultTableModel) mainFrame.getTabelaRasporeda().getModel();
-                        model.setColumnCount(model.getColumnCount() - 1);
-
-                        // Remove the item from the combo box
-                        mainFrame.getComboBox().removeItemAt(index);
-
-                        // Update your data structure to reflect the deletion
-                        Cuvac.getInstance().getRaspored().obrisiKolonu(index);
-
-                        // Revalidate and repaint the JTable
-                        mainFrame.getTabelaRasporeda().revalidate();
-                        mainFrame.getTabelaRasporeda().repaint();
-                    } else {
-                        // Handle the case where no column is selected
-                        JOptionPane.showMessageDialog(null, "Please select a column to delete.");
+                    String s1 = (String)mainFrame.getComboBox().getSelectedItem();
+                    System.out.println(s1);
+                    int i = 0;
+                    for (String s : Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja()) {
+                        if(s.equalsIgnoreCase(s1)){
+                            Cuvac.getInstance().getRaspored().obrisiKolonu(i);
+                            Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja().remove(i);
+                            Cuvac.getInstance().getHeader().remove(s1);
+                            System.out.println(Cuvac.getInstance().getRaspored().getHeader());
+                            break;
+                        }
+                        i++;
                     }
+                    Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
+                    Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
+                    mainFrame.getComboBox().removeItem(s1);
                 }
             }
         });

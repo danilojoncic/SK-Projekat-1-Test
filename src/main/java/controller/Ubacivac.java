@@ -4,7 +4,9 @@ import model.boljeRijesenje.Dogadjaj;
 import model.boljeRijesenje.Raspored;
 import view.MainFrame;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Collections;
 import java.util.List;
 
 public class Ubacivac {
@@ -31,8 +33,10 @@ public class Ubacivac {
         kolone = header.toArray(kolone);
         mainFrame.getComboBox().setVisible(true);
         for (String s : header) {
+            if(postojiUComboBox(mainFrame.getComboBox(),s)){
+                continue;
+            }
             mainFrame.getComboBox().addItem(s);
-
         }
         DefaultTableModel model = new DefaultTableModel(kolone, 0);
         int index = 1;
@@ -46,5 +50,15 @@ public class Ubacivac {
         mainFrame.getTabelaRasporeda().setModel(model);
         mainFrame.revalidate();
         mainFrame.repaint();
+    }
+
+    public boolean postojiUComboBox(JComboBox jComboBox,String input){
+        for(int i = 0; i < jComboBox.getItemCount();i++){
+            String x = (String) jComboBox.getItemAt(i);
+            if(x.equalsIgnoreCase(input)){
+                return true;
+            }
+        }
+        return false;
     }
 }
