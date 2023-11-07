@@ -24,6 +24,7 @@ public class AddFrame extends JFrame {
 
     MainFrame mainFrame;
     JButton krajniDatum;
+    List<JCheckBox> jCheckBoxes;
     JButton ucitajDatumeDugme;
     List<JTextField> listaPolja;
     private ArrayList<String> dani = new ArrayList<>();
@@ -37,6 +38,7 @@ public class AddFrame extends JFrame {
     }
 
     public void initialise(){
+        jCheckBoxes = new ArrayList<>();
         jComboBoxes = new ArrayList<>();
         listaPolja = new ArrayList<>();
         this.setTitle("Dodaj dogadjaj");
@@ -50,6 +52,7 @@ public class AddFrame extends JFrame {
         int i = 0;
         for (String s : Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja()) {
             Label label = new Label(s);
+            JCheckBox jCheckBox = new JCheckBox();
             JComboBox jComboBox = new JComboBox<>();
             zoviRedzica(jComboBox,i);
             //jComboBox.addItem((Component) Cuvac.getInstance().getRaspored().getBozePomozi().get(i).keySet());
@@ -57,8 +60,10 @@ public class AddFrame extends JFrame {
             panel.add(label);
             panel.add(jComboBox);
             panel.add(jTextField);
+            panel.add(jCheckBox);
             listaPolja.add(jTextField);
             jComboBoxes.add(jComboBox);
+            jCheckBoxes.add(jCheckBox);
             i++;
         }
         potvrdi = new JButton("Potvrdi");
@@ -68,9 +73,12 @@ public class AddFrame extends JFrame {
         potvrdi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                List<Integer> mojaListIndeksa = new ArrayList<>();
                 List<String> elementi = new ArrayList<>();
                 for(int i = 0; i < jComboBoxes.size();i++){
+                    if(jCheckBoxes.get(i).isSelected()){
+                        mojaListIndeksa.add(i);
+                    }
                     if(listaPolja.get(i).getText().equals(" ")){
                         elementi.add((String)jComboBoxes.get(i).getSelectedItem());
                     }else{
@@ -78,13 +86,15 @@ public class AddFrame extends JFrame {
                     }
                 }
                 Dogadjaj dogadjaj = new Dogadjaj(elementi);
-                Cuvac.getInstance().getRaspored().getDogadjaji().add(dogadjaj);
-                Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
-                Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
+                if(Cuvac.getInstance().getRaspored().idiNaUvidUPonedeljak(dogadjaj,mojaListIndeksa)){
+                    Cuvac.getInstance().getRaspored().getDogadjaji().add(dogadjaj);
+                    Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
+                    Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
+                }else{
+                    JOptionPane.showMessageDialog(null,"Termin je zauzet ne moze se dodati");
+                }
             }
         });
-
-
         this.setVisible(true);
     }
 
