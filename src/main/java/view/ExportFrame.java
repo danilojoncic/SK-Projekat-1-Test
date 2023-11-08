@@ -17,9 +17,11 @@ public class ExportFrame extends JFrame {
 
     JButton confirm = new JButton("Confirm");
     ButtonGroup buttonGroup = new ButtonGroup();
+    MainFrame mainFrame;
     ConfirmController confirmController;
-    public ExportFrame(){
+    public ExportFrame(MainFrame mainFrame){
         initialise();
+        this.mainFrame = mainFrame;
     }
 
     public void initialise(){
@@ -67,6 +69,14 @@ public class ExportFrame extends JFrame {
 
     public JRadioButton getRbJSON() {
         return rbJSON;
+    }
+
+    public MainFrame getMainFrame() {
+        return mainFrame;
+    }
+
+    public void setMainFrame(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
     }
 
     public void setRbJSON(JRadioButton rbJSON) {

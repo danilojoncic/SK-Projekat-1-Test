@@ -28,7 +28,7 @@ public class ExportController {
             public void actionPerformed(ActionEvent e) {
 //                Raspored raspored;
                 if (mainFrame.isNestoUcitano())
-                    new ExportFrame();
+                    new ExportFrame(mainFrame);
                 else
                     JOptionPane.showMessageDialog(null,"Prvo uctajte raspored");
 //                CSVCitac csvCitac = new CSVCitac();
