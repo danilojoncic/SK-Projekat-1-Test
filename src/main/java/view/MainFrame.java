@@ -50,21 +50,24 @@ public class MainFrame extends JFrame {
         this.setLayout(new BorderLayout());
 
         importDugme = new JButton("Import");
+        importDugme.setPreferredSize(new Dimension(90,25));
         exportDugme = new JButton("Export");
+        exportDugme.setPreferredSize(new Dimension(90,25));
         editDugme = new JButton("Obrisi kolonu");
         changeDugme = new JButton("Dodaj novi dogadjaj u raspored");
         filterDugme = new JButton("Filtriraj raspored");
         postaviDatum = new JButton("Postavi datume");
         tabelaRasporeda = new JTable(model);
-        imp1RB = new JRadioButton("Format Implementacije 1");
-        imp2RB = new JRadioButton("Format Implementacije 2");
-        refreshDugme = new JButton("Refresh");
+        imp1RB = new JRadioButton("IMP 1");
+        imp2RB = new JRadioButton("IMP 2");
+        refreshDugme = new JButton("Zaledi filter");
         obrisiDogadjajDugme = new JButton("Obrisi red");
         model = new DefaultTableModel();
         comboBox = new JComboBox<>();
         comboBox.setVisible(false);
         ButtonGroup izborImplementacije = new ButtonGroup();
         filterTA = new JTextField();
+        filterTA.setPreferredSize(new Dimension(90,25));
 
         importDugme.setFocusable(false);
         editDugme.setFocusable(false);
@@ -97,15 +100,20 @@ public class MainFrame extends JFrame {
         panel2.setLayout(new BorderLayout());
         miniPanel2.setPreferredSize(new Dimension(50,50));
         miniPanel1.setPreferredSize(new Dimension(50,50));
-        miniPanel1.add(filterTA);
-        miniPanel2.add(filterDugme);
+        miniPanel1.add(refreshDugme);
+
+        miniPanel2.add(importDugme);
+        miniPanel2.add(exportDugme);
+
 
         panel2.add(miniPanel1,BorderLayout.NORTH);
         panel2.add(miniPanel2,BorderLayout.CENTER);
 
-        panel4.add(importDugme);
-        panel4.add(refreshDugme);
-        panel4.add(exportDugme);
+//        panel4.add(importDugme);
+//        panel4.add(refreshDugme);
+//        panel4.add(exportDugme);
+        panel4.add(filterTA);
+        panel4.add(filterDugme);
 
         panel1.add(imp1RB);
         panel1.add(imp2RB);
