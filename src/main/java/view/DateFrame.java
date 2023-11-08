@@ -97,6 +97,7 @@ public class DateFrame extends JFrame {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("d.M");
                 Date date = null;
                 for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
+                    //ovo pravi problem kada se obrise neka kolona i pokusa ponovo
                     int index = vratiIndeksZaDan(dogadjaj.getStavkeDogadjaja().get(4));
                     date = calculateDateForDayOfWeek(Cuvac.getInstance().getRaspored().getDatumOdKadaVazi(),index);
 

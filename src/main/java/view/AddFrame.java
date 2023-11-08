@@ -6,6 +6,7 @@ import controller.ImportController;
 import controller.Ubacivac;
 import model.boljeRijesenje.Datumi;
 import model.boljeRijesenje.Dogadjaj;
+import model.boljeRijesenje.Raspored;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -23,13 +24,11 @@ import java.util.List;
 public class AddFrame extends JFrame {
 
     MainFrame mainFrame;
-    JButton krajniDatum;
     List<JCheckBox> jCheckBoxes;
-    JButton ucitajDatumeDugme;
     List<JTextField> listaPolja;
     private ArrayList<String> dani = new ArrayList<>();
     private List<JComboBox> jComboBoxes;
-    JDateChooser jDateChooser;
+
     JButton potvrdi;
 
     public AddFrame(MainFrame mainFrame){
@@ -42,7 +41,7 @@ public class AddFrame extends JFrame {
         jComboBoxes = new ArrayList<>();
         listaPolja = new ArrayList<>();
         this.setTitle("Dodaj dogadjaj");
-        this.setSize(750,400);
+        this.setSize(750,550);
         this.setResizable(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ImageIcon icon = new ImageIcon("src/icon.png");
@@ -79,17 +78,28 @@ public class AddFrame extends JFrame {
                     if(jCheckBoxes.get(i).isSelected()){
                         mojaListIndeksa.add(i);
                     }
-                    if(listaPolja.get(i).getText().equals(" ")){
-                        elementi.add((String)jComboBoxes.get(i).getSelectedItem());
+
+
+                    if(listaPolja.get(i).getText().isBlank()){
+                        elementi.add(jComboBoxes.get(i).getSelectedItem().toString());
+                        //System.out.println("index i : " + i + " " + jComboBoxes.get(i).getSelectedItem().toString());
                     }else{
                         elementi.add(listaPolja.get(i).getText());
                     }
                 }
+                //System.out.println("LISTA ELEMENATA ->>> " + elementi);
                 Dogadjaj dogadjaj = new Dogadjaj(elementi);
-                if(Cuvac.getInstance().getRaspored().idiNaUvidUPonedeljak(dogadjaj,mojaListIndeksa)){
+                Raspored rasporedTemporary = Cuvac.getInstance().getRaspored();
+                //ovo treba ispratiti da li valja
+                //System.out.println("PRIJE PROVJERE");
+                //System.out.println("Dogadjaj ->>>> " + dogadjaj.toString());
+                //System.out.println("Lista indeksa ->>>>> " + mojaListIndeksa);
+                //rasporedTemporary.idiNaUvidUPonedeljak(dogadjaj,mojaListIndeksa);
+                if(rasporedTemporary.idiNaUvidUPonedeljak(dogadjaj,mojaListIndeksa)){
                     Cuvac.getInstance().getRaspored().getDogadjaji().add(dogadjaj);
                     Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
                     Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
+
                 }else{
                     JOptionPane.showMessageDialog(null,"Termin je zauzet ne moze se dodati");
                 }

@@ -47,41 +47,35 @@ public class MainFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ImageIcon icon = new ImageIcon("src/icon.png");
         this.setIconImage(icon.getImage());
-
         this.setLayout(new BorderLayout());
 
         importDugme = new JButton("Import");
         exportDugme = new JButton("Export");
-        editDugme = new JButton("Delete collumn");
-        changeDugme = new JButton("Dodaj");
-        filterDugme = new JButton("Filtriraj");
+        editDugme = new JButton("Obrisi kolonu");
+        changeDugme = new JButton("Dodaj novi dogadjaj u raspored");
+        filterDugme = new JButton("Filtriraj raspored");
         postaviDatum = new JButton("Postavi datume");
-
+        tabelaRasporeda = new JTable(model);
+        imp1RB = new JRadioButton("Format Implementacije 1");
+        imp2RB = new JRadioButton("Format Implementacije 2");
+        refreshDugme = new JButton("Refresh");
+        obrisiDogadjajDugme = new JButton("Obrisi red");
+        model = new DefaultTableModel();
+        comboBox = new JComboBox<>();
+        comboBox.setVisible(false);
+        ButtonGroup izborImplementacije = new ButtonGroup();
+        filterTA = new JTextField();
 
         importDugme.setFocusable(false);
         editDugme.setFocusable(false);
         changeDugme.setFocusable(false);
         exportDugme.setFocusable(false);
-        refreshDugme = new JButton("Refresh");
-        obrisiDogadjajDugme = new JButton("Obrisi izabrano");
-        model = new DefaultTableModel();
-
-        tabelaRasporeda = new JTable(model);
 
 
-
-
-        imp1RB = new JRadioButton("Format 1");
-        imp2RB = new JRadioButton("Format 2");
-
-        comboBox = new JComboBox<>();
-        comboBox.setVisible(false);
-
-        ButtonGroup izborImplementacije = new ButtonGroup();
         izborImplementacije.add(imp1RB);
         izborImplementacije.add(imp2RB);
 
-        filterTA = new JTextField();
+
         filterTA.setSize(50,10);
 
         JPanel panel1 = new JPanel();
@@ -89,6 +83,9 @@ public class MainFrame extends JFrame {
         JPanel panel3 = new JPanel();
         JPanel panel4 = new JPanel();
         JPanel panel5 = new JPanel();
+        JPanel miniPanel1 = new JPanel();
+        JPanel miniPanel2 = new JPanel();
+
 
 
         panel1.setPreferredSize(new Dimension(130,130));
@@ -98,58 +95,50 @@ public class MainFrame extends JFrame {
         panel5.setPreferredSize(new Dimension(400,400));
 
         panel2.setLayout(new BorderLayout());
-        JPanel miniPanel1 = new JPanel();
-        JPanel miniPanel2 = new JPanel();
         miniPanel2.setPreferredSize(new Dimension(50,50));
         miniPanel1.setPreferredSize(new Dimension(50,50));
         miniPanel1.add(filterTA);
         miniPanel2.add(filterDugme);
+
         panel2.add(miniPanel1,BorderLayout.NORTH);
         panel2.add(miniPanel2,BorderLayout.CENTER);
-
-
-
-
 
         panel4.add(importDugme);
         panel4.add(refreshDugme);
         panel4.add(exportDugme);
 
-
         panel1.add(imp1RB);
         panel1.add(imp2RB);
         panel1.add(postaviDatum);
 
-
-
         panel3.add(changeDugme);
         panel3.add(editDugme);
         panel3.add(comboBox);
+
         panel3.add(obrisiDogadjajDugme);
-
-//        tabelaRasporeda.setPreferredSize(new Dimension(600,400));
-
-        jScrollPane = new JScrollPane(tabelaRasporeda);
-
-        jScrollPane.setPreferredSize(new Dimension(600,400));
-        jScrollPane.setViewportView(tabelaRasporeda);
-        jScrollPane.setVisible(true);
+        extracted();
         panel5.add(jScrollPane);
 
 
+        nalijepiPanele(panel1, panel2, panel3, panel4, panel5);
+        controllManager = new ControllManager(this);
+        this.setVisible(true);
+    }
 
-
+    private void nalijepiPanele(JPanel panel1, JPanel panel2, JPanel panel3, JPanel panel4, JPanel panel5) {
         this.add(panel1,BorderLayout.EAST);
         this.add(panel2,BorderLayout.WEST);
         this.add(panel3,BorderLayout.SOUTH);
         this.add(panel4,BorderLayout.NORTH);
         this.add(panel5,BorderLayout.CENTER);
+    }
 
+    private void extracted() {
+        jScrollPane = new JScrollPane(tabelaRasporeda);
 
-
-
-        controllManager = new ControllManager(this);
-        this.setVisible(true);
+        jScrollPane.setPreferredSize(new Dimension(600,400));
+        jScrollPane.setViewportView(tabelaRasporeda);
+        jScrollPane.setVisible(true);
     }
 
     public JButton getImportDugme() {
@@ -243,11 +232,6 @@ public class MainFrame extends JFrame {
     public void setPutanjaDoTrenutnogRasporeda(String putanjaDoTrenutnogRasporeda) {
         this.putanjaDoTrenutnogRasporeda = putanjaDoTrenutnogRasporeda;
     }
-
-
-
-
-
 
     public JButton getObrisiDogadjajDugme() {
         return obrisiDogadjajDugme;
