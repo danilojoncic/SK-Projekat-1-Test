@@ -23,6 +23,7 @@ public class MainFrame extends JFrame {
     JTable tabelaRasporeda;
 
     JRadioButton imp1RB;
+    JButton editPoljeDugme;
     JRadioButton imp2RB;
     JTextField filterTA;
 
@@ -68,6 +69,7 @@ public class MainFrame extends JFrame {
         ButtonGroup izborImplementacije = new ButtonGroup();
         filterTA = new JTextField();
         filterTA.setPreferredSize(new Dimension(90,25));
+        editPoljeDugme = new JButton("Edit");
 
         importDugme.setFocusable(false);
         editDugme.setFocusable(false);
@@ -120,6 +122,7 @@ public class MainFrame extends JFrame {
         panel1.add(postaviDatum);
 
         panel3.add(changeDugme);
+        panel3.add(editPoljeDugme);
         panel3.add(editDugme);
         panel3.add(comboBox);
 
@@ -267,6 +270,15 @@ public class MainFrame extends JFrame {
 
     public JButton getPostaviDatum() {
         return postaviDatum;
+    }
+
+
+    public JButton getEditPoljeDugme() {
+        return editPoljeDugme;
+    }
+
+    public void setEditPoljeDugme(JButton editPoljeDugme) {
+        this.editPoljeDugme = editPoljeDugme;
     }
 
     public void setPostaviDatum(JButton postaviDatum) {
