@@ -17,13 +17,19 @@ import view.ExportFrame;
 import view.MainFrame;
 
 import javax.imageio.ImageIO;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.OrientationRequested;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.List;
 
 import static java.awt.Font.BOLD;
@@ -42,36 +48,17 @@ public class ConfirmController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (exportFrame.getRbPDF().isSelected()) {
-                    BufferedImage bi = new BufferedImage(500,500,TYPE_3BYTE_BGR);
-                    Graphics g = bi.createGraphics();
-                    exportFrame.getMainFrame().getTabelaRasporeda().paint(g);
-                    g.dispose();
-                    File file = new File("output.pdf");
-                    try {
-                        ImageIO.write(bi, "pdf", file);
+                    MessageFormat header = new MessageFormat("Raspored");
 
-                        // ukoliko korisnik nije stavio da je slika .png, postavice sam
-                        if (!file.getName().endsWith(".pdf")) {
-                            file.renameTo(new File(file.getPath() + ".pdf"));
-                        }
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
-                    }
-                } else if (exportFrame.getRbCSV().isSelected()) {
-                    Raspored raspored = Cuvac.getInstance().getRaspored();
-                    List<String> header = Cuvac.getInstance().getHeader();
-                    String[] kolone = new String[header.size()];
-                    CSVPisac csvPisac = new CSVPisac();
-                    csvPisac.napisi(raspored);
-                } else if (exportFrame.getRbJSON().isSelected()) {
-                    Raspored raspored = Cuvac.getInstance().getRaspored();
-                    JSONPIsac jsonpIsac = new JSONPIsac(raspored);
-                    File file = new File("output.json");
+                    PrintRequestAttributeSet set = new HashPrintRequestAttributeSet();
+                    set.add(OrientationRequested.LANDSCAPE);
                     try {
-                        jsonpIsac.ispisiJSON(file);
-                    } catch (IOException ex) {
+                        exportFrame.getMainFrame().getTabelaRasporeda().print(JTable.PrintMode.FIT_WIDTH,header,null,true,set,true);
+                        JOptionPane.showMessageDialog(null,"Printed Succesfully");
+                    } catch (PrinterException ex) {
                         throw new RuntimeException(ex);
                     }
+
                 }
                 exportFrame.dispose();
             }
