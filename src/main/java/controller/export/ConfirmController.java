@@ -1,40 +1,18 @@
-package controller;
+package controller.export;
 
 import controller.Cuvac;
-import model.boljeRijesenje.Dogadjaj;
-import model.boljeRijesenje.Raspored;
-import org.apache.pdfbox.cos.COSDictionary;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import org.raf.csvimpl1.CSVPisac;
-import org.raf.jsonimpl1.JSONPIsac;
-import view.ExportFrame;
-import view.MainFrame;
+import org.raf.Implemetacija1;
 
-import javax.imageio.ImageIO;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.OrientationRequested;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.awt.print.PrinterException;
-import java.io.File;
-import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Date;
-import java.util.List;
-
-import static java.awt.Font.BOLD;
-import static java.awt.image.BufferedImage.TYPE_3BYTE_BGR;
 
 public class ConfirmController {
     ExportFrame exportFrame;
@@ -48,7 +26,15 @@ public class ConfirmController {
         exportFrame.getConfirm().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Implemetacija1 implemetacija1 = new Implemetacija1();
+                implemetacija1.setRaspored(Cuvac.getInstance().getRaspored());
+                implemetacija1.getRaspored().setHeader(Cuvac.getInstance().getRaspored().getHeader());
+                String type;
+                String fileName;
+
+
                 if (exportFrame.getRbPDF().isSelected()) {
+                    type = "pdf";
                     //mali bag za datume koji se rijesava na komponenti koja radi sa datumima
                     Date od = Cuvac.getInstance().getRaspored().getDatumOdKadaVazi();
                     Date doV = Cuvac.getInstance().getRaspored().getDatumDoKadaVazi();
@@ -63,6 +49,12 @@ public class ConfirmController {
                     } catch (PrinterException ex) {
                         throw new RuntimeException(ex);
                     }
+                }else if(exportFrame.getRbJSON().isSelected()){
+                    type = "json";
+                    implemetacija1.kreirajRaspored("filename",type);
+                }else if(exportFrame.getRbCSV().isSelected()){
+                    type = "csv";
+                    implemetacija1.kreirajRaspored("output.csv",type);
                 }
                 exportFrame.dispose();
             }

@@ -1,7 +1,5 @@
-package controller;
+package controller.edit;
 
-import view.AddFrame;
-import view.EditFrame;
 import view.MainFrame;
 
 import javax.swing.*;

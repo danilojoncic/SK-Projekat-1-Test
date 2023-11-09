@@ -1,24 +1,12 @@
-package view;
+package controller.edit;
 
-import com.toedter.calendar.JDateChooser;
 import controller.Cuvac;
-import controller.ImportController;
 import controller.Ubacivac;
-import model.boljeRijesenje.Datumi;
 import model.boljeRijesenje.Dogadjaj;
-import model.boljeRijesenje.Raspored;
+import view.MainFrame;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class EditFrame extends JFrame {
@@ -28,6 +16,7 @@ public class EditFrame extends JFrame {
     List<JTextField> listaPolja;
     Dogadjaj orginal;
     private ArrayList<String> dani = new ArrayList<>();
+    SabotazaController sabotazaController;
 
     JButton potvrdi;
 
@@ -63,45 +52,8 @@ public class EditFrame extends JFrame {
         potvrdi = new JButton("Potvrdi");
         panel.add(potvrdi);
         this.add(panel);
-        potvrdi.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int indeksOdSelektovanogOrginala = vratiIndeks();
-                List<Integer> mojaListIndeksa = new ArrayList<>();
-                List<String> elementi = new ArrayList<>();
-                for(int i = 0; i < listaPolja.size();i++){
-                    elementi.add(listaPolja.get(i).getText());
-                }
-                for(int i = 0; i < jCheckBoxes.size();i++){
-                    if(jCheckBoxes.get(i).isSelected()){
-                        mojaListIndeksa.add(i);
-                    }
-                }
-
-                Dogadjaj dogadjajNovi = new Dogadjaj(elementi);
-                System.out.println("ORGINAL ->" + orginal + " NOVI KAO PROMJENA ->" + dogadjajNovi);
-                if(orginal.isClone(dogadjajNovi)){
-                    System.out.println("JA SAM KLON");
-                    JOptionPane.showMessageDialog(null,"Nista nisi promijenio!");
-                    return;
-                }
-                Cuvac.getInstance().getRaspored().getDogadjaji().set(indeksOdSelektovanogOrginala,dogadjajNovi);
-                Raspored rasporedTemporary = Cuvac.getInstance().getRaspored().kloniraj(Cuvac.getInstance().getRaspored());
-                if(mojaListIndeksa.isEmpty()){
-                    System.out.println("JA SAM PRAZAN");
-                    return;
-                }else if(rasporedTemporary.idiNaUvidUPonedeljak(dogadjajNovi,mojaListIndeksa)){
-                    System.out.println("JA NISAM PRAZAN");
-                    //Cuvac.getInstance().getRaspored().getDogadjaji().add(dogadjajNovi);
-                    Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
-                    Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
-
-                }else{
-                    JOptionPane.showMessageDialog(null,"Termin je zauzet ne moze se staviti");
-                }
-            }
-        });
         this.setVisible(true);
+        sabotazaController = new SabotazaController(this);
     }
 
 
@@ -112,7 +64,6 @@ public class EditFrame extends JFrame {
             listaPolja.get(i).setText(dogadjaj.getStavkeDogadjaja().get(i));
         }
     }
-
     private int vratiIndeks(){
         return mainFrame.getTabelaRasporeda().getSelectedRow();
     }
@@ -126,5 +77,53 @@ public class EditFrame extends JFrame {
             jComboBox.addItem(s);
             jComboBox.setSelectedItem(" ");
         }
+    }
+
+    public MainFrame getMainFrame() {
+        return mainFrame;
+    }
+
+    public void setMainFrame(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+    }
+
+    public List<JCheckBox> getjCheckBoxes() {
+        return jCheckBoxes;
+    }
+
+    public void setjCheckBoxes(List<JCheckBox> jCheckBoxes) {
+        this.jCheckBoxes = jCheckBoxes;
+    }
+
+    public List<JTextField> getListaPolja() {
+        return listaPolja;
+    }
+
+    public void setListaPolja(List<JTextField> listaPolja) {
+        this.listaPolja = listaPolja;
+    }
+
+    public Dogadjaj getOrginal() {
+        return orginal;
+    }
+
+    public void setOrginal(Dogadjaj orginal) {
+        this.orginal = orginal;
+    }
+
+    public ArrayList<String> getDani() {
+        return dani;
+    }
+
+    public void setDani(ArrayList<String> dani) {
+        this.dani = dani;
+    }
+
+    public JButton getPotvrdi() {
+        return potvrdi;
+    }
+
+    public void setPotvrdi(JButton potvrdi) {
+        this.potvrdi = potvrdi;
     }
 }

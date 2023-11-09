@@ -1,10 +1,9 @@
-package controller;
+package controller.date;
 
-import view.DateFrame;
+import controller.date.DateFrame;
 import view.MainFrame;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
