@@ -30,6 +30,7 @@ import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.Date;
 import java.util.List;
 
 import static java.awt.Font.BOLD;
@@ -48,7 +49,11 @@ public class ConfirmController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (exportFrame.getRbPDF().isSelected()) {
-                    MessageFormat header = new MessageFormat("Raspored");
+                    //mali bag za datume koji se rijesava na komponenti koja radi sa datumima
+                    Date od = Cuvac.getInstance().getRaspored().getDatumOdKadaVazi();
+                    Date doV = Cuvac.getInstance().getRaspored().getDatumDoKadaVazi();
+                    MessageFormat header = new MessageFormat("Raspored " +
+                              od.getDay() + "." + od.getMonth() + ". " +  "- " + doV.getDay() + "." + doV.getMonth());
 
                     PrintRequestAttributeSet set = new HashPrintRequestAttributeSet();
                     set.add(OrientationRequested.LANDSCAPE);
@@ -58,7 +63,6 @@ public class ConfirmController {
                     } catch (PrinterException ex) {
                         throw new RuntimeException(ex);
                     }
-
                 }
                 exportFrame.dispose();
             }
