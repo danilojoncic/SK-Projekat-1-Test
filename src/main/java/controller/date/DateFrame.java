@@ -1,7 +1,6 @@
 package controller.date;
 
 import com.toedter.calendar.JDateChooser;
-import controller.date.RudarenjeURudnikuController;
 import view.MainFrame;
 
 import javax.swing.*;
@@ -19,7 +18,7 @@ public class DateFrame extends JFrame {
 
     JDateChooser jDateChooser;
     RudarenjeURudnikuController rudarenjeURudnikuController;
-    JButton potvrdi;
+    JButton pocetniDatum;
 
     public DateFrame(MainFrame mainFrame){
         this.mainFrame = mainFrame;
@@ -37,16 +36,16 @@ public class DateFrame extends JFrame {
         this.setLayout(new FlowLayout());
         ucitajDatumeDugme = new JButton("Ucitaj u model");
         jDateChooser = new JDateChooser();
-        potvrdi = new JButton("Pocetak");
-        dani.add("PON");
+        pocetniDatum = new JButton("Pocetak");
+        dani.add("PON"); //0
         dani.add("UTO");
         dani.add("SRE");
         dani.add("ČET");
         dani.add("PET");
         dani.add("SUB");
-        dani.add("NED");
+        dani.add("NED"); //6
         this.add(jDateChooser);
-        this.add(potvrdi);
+        this.add(pocetniDatum);
         this.add(krajniDatum);
         this.add(ucitajDatumeDugme);
         this.setVisible(true);
@@ -113,11 +112,11 @@ public class DateFrame extends JFrame {
         this.jDateChooser = jDateChooser;
     }
 
-    public JButton getPotvrdi() {
-        return potvrdi;
+    public JButton getPocetniDatum() {
+        return pocetniDatum;
     }
 
-    public void setPotvrdi(JButton potvrdi) {
-        this.potvrdi = potvrdi;
+    public void setPocetniDatum(JButton pocetniDatum) {
+        this.pocetniDatum = pocetniDatum;
     }
 }

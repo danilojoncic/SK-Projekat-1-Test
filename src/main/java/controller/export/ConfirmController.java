@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ConfirmController {
@@ -38,8 +39,11 @@ public class ConfirmController {
                     //mali bag za datume koji se rijesava na komponenti koja radi sa datumima
                     Date od = Cuvac.getInstance().getRaspored().getDatumOdKadaVazi();
                     Date doV = Cuvac.getInstance().getRaspored().getDatumDoKadaVazi();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d.M.y");
+                    String odDaValja = simpleDateFormat.format(od);
+                    String doDaValja = simpleDateFormat.format(doV);
                     MessageFormat header = new MessageFormat("Raspored " +
-                              od.getDay() + "." + od.getMonth() + ". " +  "- " + doV.getDay() + "." + doV.getMonth());
+                               odDaValja +  "- " + doDaValja);
 
                     PrintRequestAttributeSet set = new HashPrintRequestAttributeSet();
                     set.add(OrientationRequested.LANDSCAPE);
