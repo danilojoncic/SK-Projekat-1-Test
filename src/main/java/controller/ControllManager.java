@@ -20,6 +20,7 @@ public class ControllManager {
     DeleteDogadjajController deleteDogadjajController;
     DodajController dodajController;
     RefreshController refreshController;
+    ImplementacijaController implementacijaController;
 
     public ControllManager(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -37,6 +38,6 @@ public class ControllManager {
         filterController = new FilterController(mainFrame);
         dateController = new DateController(mainFrame);
         refreshController = new RefreshController(mainFrame);
-
+        implementacijaController = new ImplementacijaController(mainFrame);
     }
 }

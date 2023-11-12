@@ -1,0 +1,29 @@
+Raf05 (u) 30 da ne
+Raf06 (a) 30 da ne
+Rg06 (u) 30 da da
+Raf19 (a) 22 da ne
+Rg02 (u) 25 ne ne
+Raf10 (a) 25 ne da
+Raf04 (u) 30 da ne
+Raf20 (a) 75 da ne
+Rg01 (u) 25 ne da
+Raf11 (a) 22 ne da
+Raf14 (MD) 22 da da
+Raf07 (u) 30 ne ne
+Rg04 (u) 25 da da
+Raf02 (u) 30 da da
+Raf09 (a) 30 da da
+Raf03 (u) 30 ne ne
+Raf08 (a) 25 da da
+Raf21 (a) 75 ne ne
+Raf15 (MD) 15 da da
+Raf13 (MD) 15 ne ne
+CET 15 ne ne
+Kolarac2 100 da da
+Raf12 (MD) 22 da ne
+Raf18 (a) 75 da da
+Kolarac1 100 da da
+Raf01 (u) 25 da da
+Raf16 (MD) 15 da da
+Rg07 (u) 25 da da
+Kolarac3 100 da da
