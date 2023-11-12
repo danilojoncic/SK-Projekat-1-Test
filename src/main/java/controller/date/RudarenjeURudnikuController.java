@@ -57,12 +57,14 @@ public class RudarenjeURudnikuController {
         dateFrame.getUcitajDatumeDugme().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Cuvac.getInstance().setKolonaDana(dateFrame.getjCheckBox().getSelectedIndex());
+                dateFrame.label.setText("Kolona dana je uzeta!");
                 // Create a SimpleDateFormat object to format the date
                 SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.y");
                 Date date = null;
                 for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
                     //ovo pravi problem kada se obrise neka kolona i pokusa ponovo
-                    int index = vratiIndeksZaDan(dogadjaj.getStavkeDogadjaja().get(4));
+                    int index = vratiIndeksZaDan(dogadjaj.getStavkeDogadjaja().get(Cuvac.getInstance().getKolonaDana()));
                     date = calculateDateForDayOfWeek(Cuvac.getInstance().getRaspored().getDatumOdKadaVazi(),index);
                     Date od = Cuvac.getInstance().getRaspored().getDatumOdKadaVazi();
                     Date doV = Cuvac.getInstance().getRaspored().getDatumDoKadaVazi();

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Cuvac {
 
-
+    int kolonaDana;
     Raspored raspored;
     List<String> header;
     private static Cuvac instance = null;
@@ -36,5 +36,13 @@ public class Cuvac {
 
     public void setRaspored(Raspored raspored) {
         this.raspored = raspored;
+    }
+
+    public int getKolonaDana() {
+        return kolonaDana;
+    }
+
+    public void setKolonaDana(int kolonaDana) {
+        this.kolonaDana = kolonaDana;
     }
 }

@@ -1,6 +1,8 @@
 package controller.date;
 
 import com.toedter.calendar.JDateChooser;
+import controller.Cuvac;
+import controller.Ubacivac;
 import view.MainFrame;
 
 import javax.swing.*;
@@ -10,8 +12,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateFrame extends JFrame {
-
+    JLabel label;
     MainFrame mainFrame;
+    JComboBox jCheckBox;
     JButton krajniDatum;
     JButton ucitajDatumeDugme;
     private ArrayList<String> dani = new ArrayList<>();
@@ -37,6 +40,8 @@ public class DateFrame extends JFrame {
         ucitajDatumeDugme = new JButton("Ucitaj u model");
         jDateChooser = new JDateChooser();
         pocetniDatum = new JButton("Pocetak");
+        jCheckBox = new JComboBox<>();
+        label = new JLabel("Izaberi kolonu koja se odnosi na dane: ");
         dani.add("PON"); //0
         dani.add("UTO");
         dani.add("SRE");
@@ -44,6 +49,9 @@ public class DateFrame extends JFrame {
         dani.add("PET");
         dani.add("SUB");
         dani.add("NED"); //6
+        this.add(label);
+        this.add(jCheckBox);
+        zoviRedzica(jCheckBox,0);
         this.add(jDateChooser);
         this.add(pocetniDatum);
         this.add(krajniDatum);
@@ -118,5 +126,32 @@ public class DateFrame extends JFrame {
 
     public void setPocetniDatum(JButton pocetniDatum) {
         this.pocetniDatum = pocetniDatum;
+    }
+
+    public void zoviRedzica(JComboBox jComboBox,int index){
+        //jComboBox.addItem(" ");
+        for(String s : Cuvac.getInstance().getHeader()){
+            if(Ubacivac.getInstance().postojiUComboBox(jComboBox,s)){
+                continue;
+            }
+            jComboBox.addItem(s);
+            //jComboBox.setSelectedItem(" ");
+        }
+    }
+
+    public JLabel getLabel() {
+        return label;
+    }
+
+    public void setLabel(JLabel label) {
+        this.label = label;
+    }
+
+    public JComboBox getjCheckBox() {
+        return jCheckBox;
+    }
+
+    public void setjCheckBox(JComboBox jCheckBox) {
+        this.jCheckBox = jCheckBox;
     }
 }
