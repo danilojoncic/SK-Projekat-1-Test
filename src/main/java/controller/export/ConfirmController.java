@@ -44,11 +44,17 @@ public class ConfirmController {
                     String doDaValja = simpleDateFormat.format(doV);
                     MessageFormat header = new MessageFormat("Raspored " +
                                odDaValja +  "- " + doDaValja);
-
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for(String s : Cuvac.getInstance().getRaspored().getTabLimundo().keySet()){
+                        stringBuilder.append(s + ":" + Cuvac.getInstance().getRaspored().getTabLimundo().get(s).getKapacitet());
+                        stringBuilder.append(",");
+                        stringBuilder.append("\n");
+                    }
+                    MessageFormat footer = new MessageFormat(stringBuilder.toString());
                     PrintRequestAttributeSet set = new HashPrintRequestAttributeSet();
                     set.add(OrientationRequested.LANDSCAPE);
                     try {
-                        exportFrame.getMainFrame().getTabelaRasporeda().print(JTable.PrintMode.FIT_WIDTH,header,null,true,set,true);
+                        exportFrame.getMainFrame().getTabelaRasporeda().print(JTable.PrintMode.FIT_WIDTH,header,footer,true,set,true);
                         JOptionPane.showMessageDialog(null,"Printed Succesfully");
                     } catch (PrinterException ex) {
                         throw new RuntimeException(ex);
