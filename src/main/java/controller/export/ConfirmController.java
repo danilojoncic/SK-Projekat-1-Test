@@ -45,11 +45,11 @@ public class ConfirmController {
                     MessageFormat header = new MessageFormat("Raspored " +
                                odDaValja +  "- " + doDaValja);
                     StringBuilder stringBuilder = new StringBuilder();
-                    for(String s : Cuvac.getInstance().getRaspored().getTabLimundo().keySet()){
-                        stringBuilder.append(s + ":" + Cuvac.getInstance().getRaspored().getTabLimundo().get(s).getKapacitet());
-                        stringBuilder.append(",");
-                        stringBuilder.append("\n");
-                    }
+//                    for(String s : Cuvac.getInstance().getRaspored().getTabLimundo().keySet()){
+//                        stringBuilder.append(s + ":" + Cuvac.getInstance().getRaspored().getTabLimundo().get(s).getKapacitet());
+//                        stringBuilder.append(",");
+//                        stringBuilder.append("\n");
+//                    }
                     MessageFormat footer = new MessageFormat(stringBuilder.toString());
                     PrintRequestAttributeSet set = new HashPrintRequestAttributeSet();
                     set.add(OrientationRequested.LANDSCAPE);

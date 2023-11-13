@@ -1,22 +1,16 @@
 package controller;
 
-import model.boljeRijesenje.Dogadjaj;
 import model.boljeRijesenje.Osobine;
 import model.boljeRijesenje.Raspored;
 
 import org.raf.Implemetacija1;
-import org.raf.csvimpl1.CSVCitac;
-import org.raf.jsonimpl1.JSONCitac;
 import view.MainFrame;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -53,7 +47,7 @@ public class ImportController{
                     System.out.println(raspored.getHeader().toString());
                     Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().raspored);
                 }
-                citajSaForumaU2Ujutro();
+                //citajSaForumaU2Ujutro();
                 //initListaTermina(new ArrayList<>());
 //                System.out.println("SVE UCIONICE SU ISPOD");
 //                for(String s : raspored.getBozePomozi().get(6).keySet()){
@@ -103,7 +97,7 @@ public class ImportController{
     }
 
 
-    public void citajSaForumaU2Ujutro(){
+    public void citajSaForumaU2Ujutro() throws FileNotFoundException {
         File file = new File("RAF ucionice.txt");
         try {
             FileReader fileReader = new FileReader(file);
@@ -128,9 +122,8 @@ public class ImportController{
                 Osobine osobine = new Osobine(Integer.parseInt(niz[indexBroja]),b1,b2);
                 tabKupujemProdajem.put(tempUcionica,osobine);
             };
+            //tab limundo se svaki put kada se ucitava, modifikuje, ili refreshuje da se uradi
             Cuvac.getInstance().getRaspored().setTabLimundo(tabKupujemProdajem);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
