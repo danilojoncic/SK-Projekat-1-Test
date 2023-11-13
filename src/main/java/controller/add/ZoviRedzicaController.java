@@ -39,18 +39,16 @@ public class ZoviRedzicaController {
                         elementi.add(addFrame.getListaPolja().get(i).getText());
                     }
                 }
-                //System.out.println("LISTA ELEMENATA ->>> " + elementi);
                 Dogadjaj dogadjaj = new Dogadjaj(elementi);
 
-
-                //ovo treba ispratiti da li valja
-                //System.out.println("PRIJE PROVJERE");
-                //System.out.println("Dogadjaj ->>>> " + dogadjaj.toString());
-                //System.out.println("Lista indeksa ->>>>> " + mojaListIndeksa);
-                //rasporedTemporary.idiNaUvidUPonedeljak(dogadjaj,mojaListIndeksa);
-                System.out.println(mojaListIndeksa);
-                System.out.println(dogadjaj);
                 Raspored rasporedTemporary = Cuvac.getInstance().getRaspored().kloniraj(Cuvac.getInstance().getRaspored());
+                //ako je lista indeksa prazna to jeste nema kriterijuma za pretragu zauzetosti
+                if(mojaListIndeksa.size() == 0){
+                    JOptionPane.showMessageDialog(null,"Moras izabrati kolone koje su kriterijum!");
+                    return;
+                }
+
+
                 if(rasporedTemporary.idiNaUvidUPonedeljak(dogadjaj,mojaListIndeksa)){
                     Cuvac.getInstance().getRaspored().getDogadjaji().add(dogadjaj);
                     Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
