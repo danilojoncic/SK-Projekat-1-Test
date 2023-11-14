@@ -34,6 +34,7 @@ public class MainFrame extends JFrame {
     JComboBox comboBox;
 
     JButton postaviDatum;
+    JPanel panel1 = new JPanel();
 
 
 
@@ -83,7 +84,7 @@ public class MainFrame extends JFrame {
 
         filterTA.setSize(50,10);
 
-        JPanel panel1 = new JPanel();
+
         JPanel panel2 = new JPanel();
         JPanel panel3 = new JPanel();
         JPanel panel4 = new JPanel();
@@ -119,7 +120,7 @@ public class MainFrame extends JFrame {
 
         panel1.add(imp1RB);
         panel1.add(imp2RB);
-        panel1.add(postaviDatum);
+//        panel1.add(postaviDatum);
 
         panel3.add(changeDugme);
         panel3.add(editPoljeDugme);
@@ -291,5 +292,9 @@ public class MainFrame extends JFrame {
 
     public void setRefreshDugme(JButton refreshDugme) {
         this.refreshDugme = refreshDugme;
+    }
+
+    public JPanel getPanel1() {
+        return panel1;
     }
 }

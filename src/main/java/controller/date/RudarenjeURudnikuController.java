@@ -59,6 +59,8 @@ public class RudarenjeURudnikuController {
             public void actionPerformed(ActionEvent e) {
                 Cuvac.getInstance().setKolonaDana(dateFrame.getjCheckBox().getSelectedIndex());
                 dateFrame.label.setText("Kolona dana je uzeta!");
+                Date od = Cuvac.getInstance().getRaspored().getDatumOdKadaVazi();
+                Date doV = Cuvac.getInstance().getRaspored().getDatumDoKadaVazi();
                 // Create a SimpleDateFormat object to format the date
                 SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.y");
                 Date date = null;
@@ -66,8 +68,7 @@ public class RudarenjeURudnikuController {
                     //ovo pravi problem kada se obrise neka kolona i pokusa ponovo
                     int index = vratiIndeksZaDan(dogadjaj.getStavkeDogadjaja().get(Cuvac.getInstance().getKolonaDana()));
                     date = calculateDateForDayOfWeek(Cuvac.getInstance().getRaspored().getDatumOdKadaVazi(),index);
-                    Date od = Cuvac.getInstance().getRaspored().getDatumOdKadaVazi();
-                    Date doV = Cuvac.getInstance().getRaspored().getDatumDoKadaVazi();
+
                     Date dan = new Date();
                     int x = 0;
                     int y = 0;
@@ -94,10 +95,53 @@ public class RudarenjeURudnikuController {
                 Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja().add("Datum");
                 Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
                 Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getMainFrame(),Cuvac.getInstance().getRaspored());
+                osveziComboBox();
                 for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
                     System.out.println(dogadjaj);
                 }
+                int brojMaxNedelja = razlikaUDanima(od,doV) / 7;
+                JComboBox comboBoxZaNedelje = new JComboBox<>();
+                for (int i = 1; i <= brojMaxNedelja; i++) {
+                    String unos = "Nedelja " + i;
+                    comboBoxZaNedelje.addItem(unos);
+                }
+                dateFrame.getMainFrame().getPanel1().add(comboBoxZaNedelje);
+                List<Dogadjaj> tempDogadjaji = new ArrayList<>();
+                System.out.println("PRVI"+Cuvac.getInstance().getRaspored().getDogadjaji().get(Cuvac.getInstance().getRaspored().getDogadjaji().size()-1));
+                System.out.println("DRUGI" +Cuvac.getInstance().getRaspored().getDogadjaji().get(Cuvac.getInstance().getRaspored().getDogadjaji().size()-2));
+                for(int i = 0; i < brojMaxNedelja; i++){
+                    for (Dogadjaj d : Cuvac.getInstance().getRaspored().getDogadjaji()) {
+                        String string = d.getStavkeDogadjaja().get(d.getStavkeDogadjaja().size() - 1);
+                        System.out.println(string);
+                        if(!string.contains("."))
+                            continue;
+                        String[] niz = string.split("\\.");
+                        int dan = Integer.parseInt(niz[0]);
+                        int mesec = Integer.parseInt(niz[1]);
+                        int godina = Integer.parseInt(niz[2])%1000 + 100;
+
+                        System.out.println("DAN: " + dan + " Mesec: " + mesec + " Godina: " + godina);
+
+                        Date date1 = new Date(godina,mesec-1 ,dan);
+                        date1 = dodajDane(date1,i*7);
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy");
+                        String lol = simpleDateFormat.format(date1);
+                        List<String> temp = new ArrayList<>(d.getStavkeDogadjaja());
+                        temp.remove(temp.size()-1);
+                        temp.add(lol);
+                        Dogadjaj dogadjaj = new Dogadjaj(temp);
+                        tempDogadjaji.add(dogadjaj);
+
+                    }
+                }
+                for (Dogadjaj dogadjaj : tempDogadjaji) {
+                    Cuvac.getInstance().getRaspored().getDogadjaji().add(dogadjaj);
+                }
+                Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
+                Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getMainFrame(),Cuvac.getInstance().getRaspored());
             }
+
+
         });
     }
 
@@ -160,4 +204,53 @@ public class RudarenjeURudnikuController {
 
         return dateIndexMap;
     }
+    public void osveziComboBox(){
+        JComboBox comboBox = dateFrame.getMainFrame().getComboBox();
+
+        comboBox.removeAllItems();
+        for (String date : Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja()) {
+            comboBox.addItem(date);
+        }
+    }
+    private static int razlikaUDanima(Date prviDatum, Date drugiDatum) {
+
+        long razlika = drugiDatum.getTime() - prviDatum.getTime();
+
+
+        return Math.toIntExact(Math.round((double) razlika / (1000 * 60 * 60 * 24)));
+    }
+    private static Date dodajDane(Date datum, int brojDana) {
+        Calendar kalendar = Calendar.getInstance();
+        kalendar.setTime(datum);
+        kalendar.add(Calendar.DAY_OF_MONTH, brojDana);
+        return kalendar.getTime();
+    }
+    private static int mesecUInt(String s){
+        if(s.equalsIgnoreCase("jan"))
+            return 0;
+        if(s.equalsIgnoreCase("feb"))
+            return 1;
+        if(s.equalsIgnoreCase("mar"))
+            return 2;
+        if(s.equalsIgnoreCase("apr"))
+            return 3;
+        if(s.equalsIgnoreCase("may"))
+            return 4;
+        if(s.equalsIgnoreCase("jun"))
+            return 5;
+        if(s.equalsIgnoreCase("jul"))
+            return 6;
+        if(s.equalsIgnoreCase("aug"))
+            return 7;
+        if(s.equalsIgnoreCase("sep"))
+            return 8;
+        if(s.equalsIgnoreCase("oct"))
+            return 9;
+        if(s.equalsIgnoreCase("nov"))
+            return 10;
+        if(s.equalsIgnoreCase("dec"))
+            return 11;
+        return 0;
+    }
+
 }

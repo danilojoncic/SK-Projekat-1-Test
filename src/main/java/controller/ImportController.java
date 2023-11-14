@@ -71,7 +71,7 @@ public class ImportController{
 
 
 
-        Cuvac.getInstance().getRaspored().setSlobodniTerminiZaGledanjeGospodaraPrstenovaBluRay(zauzetostTerminaZaUcionice);
+//        Cuvac.getInstance().getRaspored().setSlobodniTerminiZaGledanjeGospodaraPrstenovaBluRay(zauzetostTerminaZaUcionice);
     }
     private void izbaciZauzete(List<String> lista, int pocetak, int kraj){
 
