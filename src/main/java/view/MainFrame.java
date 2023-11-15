@@ -34,6 +34,9 @@ public class MainFrame extends JFrame {
     JComboBox comboBox;
 
     JButton postaviDatum;
+    JComboBox comboBoxZaNedelje = new JComboBox<>();
+
+
     JPanel panel1 = new JPanel();
 
 
@@ -120,7 +123,9 @@ public class MainFrame extends JFrame {
 
         panel1.add(imp1RB);
         panel1.add(imp2RB);
-//        panel1.add(postaviDatum);
+        panel1.add(comboBoxZaNedelje);
+        comboBoxZaNedelje.addItem("Sve");
+        comboBoxZaNedelje.setVisible(true);
 
         panel3.add(changeDugme);
         panel3.add(editPoljeDugme);
@@ -296,5 +301,9 @@ public class MainFrame extends JFrame {
 
     public JPanel getPanel1() {
         return panel1;
+    }
+
+    public JComboBox getComboBoxZaNedelje() {
+        return comboBoxZaNedelje;
     }
 }

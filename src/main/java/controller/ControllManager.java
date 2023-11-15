@@ -1,6 +1,7 @@
 package controller;
 
 import controller.add.DodajController;
+import controller.date.BoschSDSPlusController;
 import controller.date.DateController;
 import controller.edit.EditController;
 import controller.export.ExportController;
@@ -22,6 +23,8 @@ public class ControllManager {
     RefreshController refreshController;
     ImplementacijaController implementacijaController;
 
+    BoschSDSPlusController boschSDSPlusController;
+
     public ControllManager(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
 
@@ -39,5 +42,6 @@ public class ControllManager {
         dateController = new DateController(mainFrame);
         refreshController = new RefreshController(mainFrame);
         implementacijaController = new ImplementacijaController(mainFrame);
+        boschSDSPlusController = new BoschSDSPlusController(mainFrame);
     }
 }

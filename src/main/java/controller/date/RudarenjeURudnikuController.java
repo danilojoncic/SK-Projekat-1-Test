@@ -100,16 +100,16 @@ public class RudarenjeURudnikuController {
                     System.out.println(dogadjaj);
                 }
                 int brojMaxNedelja = razlikaUDanima(od,doV) / 7;
-                JComboBox comboBoxZaNedelje = new JComboBox<>();
+
                 for (int i = 1; i <= brojMaxNedelja; i++) {
                     String unos = "Nedelja " + i;
-                    comboBoxZaNedelje.addItem(unos);
+                    dateFrame.getMainFrame().getComboBoxZaNedelje().addItem(unos);
                 }
-                dateFrame.getMainFrame().getPanel1().add(comboBoxZaNedelje);
+                dateFrame.getMainFrame().getComboBoxZaNedelje().setVisible(true);
                 List<Dogadjaj> tempDogadjaji = new ArrayList<>();
                 System.out.println("PRVI"+Cuvac.getInstance().getRaspored().getDogadjaji().get(Cuvac.getInstance().getRaspored().getDogadjaji().size()-1));
                 System.out.println("DRUGI" +Cuvac.getInstance().getRaspored().getDogadjaji().get(Cuvac.getInstance().getRaspored().getDogadjaji().size()-2));
-                for(int i = 0; i < brojMaxNedelja; i++){
+                for(int i = 1; i <= brojMaxNedelja; i++){
                     for (Dogadjaj d : Cuvac.getInstance().getRaspored().getDogadjaji()) {
                         String string = d.getStavkeDogadjaja().get(d.getStavkeDogadjaja().size() - 1);
                         System.out.println(string);
@@ -139,6 +139,9 @@ public class RudarenjeURudnikuController {
                 }
                 Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
                 Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getMainFrame(),Cuvac.getInstance().getRaspored());
+
+
+
             }
 
 

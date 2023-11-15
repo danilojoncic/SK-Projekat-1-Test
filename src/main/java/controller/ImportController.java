@@ -43,6 +43,7 @@ public class ImportController{
                     mainFrame.setNestoUcitano(true);
                     Cuvac.getInstance().setRaspored(raspored);
                     Cuvac.getInstance().setHeader(raspored.getHeader().getStavkeDogadjaja());
+                    Cuvac.getInstance().setOriginalBrojDogadjaja(Cuvac.getInstance().getRaspored().getDogadjaji().size());
                     System.out.println(raspored);
                     System.out.println(raspored.getHeader().toString());
                     Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().raspored);

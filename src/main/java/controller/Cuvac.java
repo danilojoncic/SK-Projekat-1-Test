@@ -9,6 +9,8 @@ public class Cuvac {
     int kolonaDana;
     Raspored raspored;
     List<String> header;
+
+    int originalBrojDogadjaja;
     private static Cuvac instance = null;
 
     private Cuvac() {
@@ -44,5 +46,13 @@ public class Cuvac {
 
     public void setKolonaDana(int kolonaDana) {
         this.kolonaDana = kolonaDana;
+    }
+
+    public int getOriginalBrojDogadjaja() {
+        return originalBrojDogadjaja;
+    }
+
+    public void setOriginalBrojDogadjaja(int originalBrojDogadjaja) {
+        this.originalBrojDogadjaja = originalBrojDogadjaja;
     }
 }

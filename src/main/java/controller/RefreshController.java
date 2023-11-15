@@ -25,6 +25,7 @@ public class RefreshController {
                 List<Dogadjaj> filtriraniDogadjaji =  Cuvac.getInstance().getRaspored().vratiFiltrirano(text);
                 Cuvac.getInstance().getRaspored().setDogadjaji(filtriraniDogadjaji);
                 Cuvac.getInstance().getRaspored().refresh(filtriraniDogadjaji);
+                Cuvac.getInstance().setOriginalBrojDogadjaja(filtriraniDogadjaji.size());
             }
         });
     }

@@ -24,6 +24,7 @@ public class FilterController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = mainFrame.getFilterTA().getText();
+                mainFrame.getFilterTA().setText("");
                 Raspored raspored = Cuvac.getInstance().raspored;
                 if(mainFrame.isNestoUcitano()){
                     //rijesenje
