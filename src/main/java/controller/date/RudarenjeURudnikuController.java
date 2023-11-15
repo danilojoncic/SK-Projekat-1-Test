@@ -57,89 +57,113 @@ public class RudarenjeURudnikuController {
         dateFrame.getUcitajDatumeDugme().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Cuvac.getInstance().setKolonaDana(dateFrame.getjCheckBox().getSelectedIndex());
-                dateFrame.label.setText("Kolona dana je uzeta!");
-                Date od = Cuvac.getInstance().getRaspored().getDatumOdKadaVazi();
-                Date doV = Cuvac.getInstance().getRaspored().getDatumDoKadaVazi();
-                // Create a SimpleDateFormat object to format the date
-                SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.y");
-                Date date = null;
-                for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
-                    //ovo pravi problem kada se obrise neka kolona i pokusa ponovo
-                    int index = vratiIndeksZaDan(dogadjaj.getStavkeDogadjaja().get(Cuvac.getInstance().getKolonaDana()));
-                    date = calculateDateForDayOfWeek(Cuvac.getInstance().getRaspored().getDatumOdKadaVazi(),index);
+                if(dateFrame.getMainFrame().getImp1RB().isSelected()){
+                    Cuvac.getInstance().setKolonaDana(dateFrame.getjCheckBox().getSelectedIndex());
+                    dateFrame.label.setText("Kolona dana je uzeta!");
+                    Date od = Cuvac.getInstance().getRaspored().getDatumOdKadaVazi();
+                    Date doV = Cuvac.getInstance().getRaspored().getDatumDoKadaVazi();
+                    // Create a SimpleDateFormat object to format the date
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.y");
+                    Date date = null;
+                    for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
+                        //ovo pravi problem kada se obrise neka kolona i pokusa ponovo
+                        int index = vratiIndeksZaDan(dogadjaj.getStavkeDogadjaja().get(Cuvac.getInstance().getKolonaDana()));
+                        date = calculateDateForDayOfWeek(Cuvac.getInstance().getRaspored().getDatumOdKadaVazi(),index);
 
-                    Date dan = new Date();
-                    int x = 0;
-                    int y = 0;
-                    int i = 0;
-                    for(Date date1 : hm.keySet()){
-                        if(date1.equals(od)){
-                            x = i;
+                        Date dan = new Date();
+                        int x = 0;
+                        int y = 0;
+                        int i = 0;
+                        for(Date date1 : hm.keySet()){
+                            if(date1.equals(od)){
+                                x = i;
+                            }
+                            if(date1.equals(doV)){
+                                y = i;
+                            }
+                            i++;
                         }
-                        if(date1.equals(doV)){
-                            y = i;
+                        List<Date> datumi = hm.keySet().stream().toList();
+                        for(int j = x; j <= y;j++){
+                            if(hm.get(datumi.get(j)) == index){
+                                dan = datumi.get(j);
+                            }
                         }
-                        i++;
+                        System.out.println("date stampa " + date);
+                        String datum = dateFormat.format(date);
+                        dogadjaj.getStavkeDogadjaja().add(datum);
                     }
-                    List<Date> datumi = hm.keySet().stream().toList();
-                    for(int j = x; j <= y;j++){
-                        if(hm.get(datumi.get(j)) == index){
-                            dan = datumi.get(j);
-                        }
+                    Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja().add("Datum");
+                    Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
+                    Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getMainFrame(),Cuvac.getInstance().getRaspored());
+                    osveziComboBox();
+                    for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
+                        System.out.println(dogadjaj);
                     }
-                    System.out.println("date stampa " + date);
-                    String datum = dateFormat.format(date);
-                    dogadjaj.getStavkeDogadjaja().add(datum);
-                }
-                Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja().add("Datum");
-                Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
-                Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getMainFrame(),Cuvac.getInstance().getRaspored());
-                osveziComboBox();
-                for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
-                    System.out.println(dogadjaj);
-                }
-                int brojMaxNedelja = razlikaUDanima(od,doV) / 7;
+                    int brojMaxNedelja = razlikaUDanima(od,doV) / 7;
 
-                for (int i = 1; i <= brojMaxNedelja; i++) {
-                    String unos = "Nedelja " + i;
-                    dateFrame.getMainFrame().getComboBoxZaNedelje().addItem(unos);
-                }
-                dateFrame.getMainFrame().getComboBoxZaNedelje().setVisible(true);
-                List<Dogadjaj> tempDogadjaji = new ArrayList<>();
-                System.out.println("PRVI"+Cuvac.getInstance().getRaspored().getDogadjaji().get(Cuvac.getInstance().getRaspored().getDogadjaji().size()-1));
-                System.out.println("DRUGI" +Cuvac.getInstance().getRaspored().getDogadjaji().get(Cuvac.getInstance().getRaspored().getDogadjaji().size()-2));
-                for(int i = 1; i <= brojMaxNedelja; i++){
+                    for (int i = 1; i <= brojMaxNedelja; i++) {
+                        String unos = "Nedelja " + i;
+                        dateFrame.getMainFrame().getComboBoxZaNedelje().addItem(unos);
+                    }
+                    dateFrame.getMainFrame().getComboBoxZaNedelje().setVisible(true);
+                    List<Dogadjaj> tempDogadjaji = new ArrayList<>();
+                    System.out.println("PRVI"+Cuvac.getInstance().getRaspored().getDogadjaji().get(Cuvac.getInstance().getRaspored().getDogadjaji().size()-1));
+                    System.out.println("DRUGI" +Cuvac.getInstance().getRaspored().getDogadjaji().get(Cuvac.getInstance().getRaspored().getDogadjaji().size()-2));
+                    for(int i = 1; i <= brojMaxNedelja; i++){
+                        for (Dogadjaj d : Cuvac.getInstance().getRaspored().getDogadjaji()) {
+                            String string = d.getStavkeDogadjaja().get(d.getStavkeDogadjaja().size() - 1);
+                            System.out.println(string);
+                            if(!string.contains("."))
+                                continue;
+                            String[] niz = string.split("\\.");
+                            int dan = Integer.parseInt(niz[0]);
+                            int mesec = Integer.parseInt(niz[1]);
+                            int godina = Integer.parseInt(niz[2])%1000 + 100;
+
+                            System.out.println("DAN: " + dan + " Mesec: " + mesec + " Godina: " + godina);
+
+                            Date date1 = new Date(godina,mesec-1 ,dan);
+                            date1 = dodajDane(date1,i*7);
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy");
+                            String lol = simpleDateFormat.format(date1);
+                            List<String> temp = new ArrayList<>(d.getStavkeDogadjaja());
+                            temp.remove(temp.size()-1);
+                            temp.add(lol);
+                            Dogadjaj dogadjaj = new Dogadjaj(temp);
+                            tempDogadjaji.add(dogadjaj);
+
+                        }
+                    }
+                    for (Dogadjaj dogadjaj : tempDogadjaji) {
+                        Cuvac.getInstance().getRaspored().getDogadjaji().add(dogadjaj);
+                    }
+                    Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
+                    Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getMainFrame(),Cuvac.getInstance().getRaspored());
+
+                } else if (dateFrame.getMainFrame().getImp2RB().isSelected()) {
+                    Cuvac.getInstance().setKolonaDana(dateFrame.getjCheckBox().getSelectedIndex());
+                    dateFrame.label.setText("Kolona dana je uzeta!");
+                    Date od = Cuvac.getInstance().getRaspored().getDatumOdKadaVazi();
+                    Date doV = Cuvac.getInstance().getRaspored().getDatumDoKadaVazi();
+                    // Create a SimpleDateFormat object to format the date
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.y");
+                    String datumOd = dateFormat.format(od);
+                    String datumDo = dateFormat.format(doV);
+
+                    Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja().add("Vazi Od");
+                    Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja().add("Vazi Do");
+
                     for (Dogadjaj d : Cuvac.getInstance().getRaspored().getDogadjaji()) {
-                        String string = d.getStavkeDogadjaja().get(d.getStavkeDogadjaja().size() - 1);
-                        System.out.println(string);
-                        if(!string.contains("."))
-                            continue;
-                        String[] niz = string.split("\\.");
-                        int dan = Integer.parseInt(niz[0]);
-                        int mesec = Integer.parseInt(niz[1]);
-                        int godina = Integer.parseInt(niz[2])%1000 + 100;
-
-                        System.out.println("DAN: " + dan + " Mesec: " + mesec + " Godina: " + godina);
-
-                        Date date1 = new Date(godina,mesec-1 ,dan);
-                        date1 = dodajDane(date1,i*7);
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy");
-                        String lol = simpleDateFormat.format(date1);
-                        List<String> temp = new ArrayList<>(d.getStavkeDogadjaja());
-                        temp.remove(temp.size()-1);
-                        temp.add(lol);
-                        Dogadjaj dogadjaj = new Dogadjaj(temp);
-                        tempDogadjaji.add(dogadjaj);
+                        d.getStavkeDogadjaja().add(datumOd);
+                        d.getStavkeDogadjaja().add(datumDo);
 
                     }
+                    Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
+                    Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getMainFrame(),Cuvac.getInstance().getRaspored());
+                    dateFrame.getMainFrame().revalidate();
+                    dateFrame.getMainFrame().repaint();
                 }
-                for (Dogadjaj dogadjaj : tempDogadjaji) {
-                    Cuvac.getInstance().getRaspored().getDogadjaji().add(dogadjaj);
-                }
-                Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
-                Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getMainFrame(),Cuvac.getInstance().getRaspored());
-
 
 
             }

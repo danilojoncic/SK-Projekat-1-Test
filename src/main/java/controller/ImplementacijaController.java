@@ -2,6 +2,7 @@ package controller;
 
 import controller.date.DateFrame;
 import org.raf.Implemetacija1;
+import raf.Implemetacija2;
 import view.MainFrame;
 
 import java.awt.event.ActionEvent;
@@ -20,6 +21,7 @@ public class ImplementacijaController {
         mainFrame.getImp1RB().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+
                 System.out.println("Pritisao impl1 dugme");
                 Implemetacija1 implemetacija1 = new Implemetacija1();
                 implemetacija1.setRaspored(Cuvac.getInstance().getRaspored());
@@ -37,7 +39,16 @@ public class ImplementacijaController {
         mainFrame.getImp2RB().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("IDUCI PUT BRATE, NEMOJ SADA!");
+                Implemetacija2 implemetacija2 = new Implemetacija2();
+                implemetacija2.setRaspored(Cuvac.getInstance().getRaspored());
+                implemetacija2.nejmarUPetercu();
+                Cuvac.getInstance().setRaspored(implemetacija2.getRaspored());
+                Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
+                //nema smisla da diramo ovo jer bi bilo glupo ako smo formatirali kao impl1
+                mainFrame.getComboBox().setVisible(false);
+                mainFrame.repaint();
+                mainFrame.revalidate();
+                new DateFrame(mainFrame);
             }
         });
 
