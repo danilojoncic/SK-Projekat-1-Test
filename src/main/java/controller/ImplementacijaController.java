@@ -1,15 +1,17 @@
 package controller;
 
 import controller.date.DateFrame;
-import org.raf.Implemetacija1;
-import raf.Implemetacija2;
+import model.Specifikacija;
+import model.boljeRijesenje.Manager;
 import view.MainFrame;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ImplementacijaController {
     MainFrame mainFrame;
+    Specifikacija specifikacija;
 
     public ImplementacijaController(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -18,39 +20,21 @@ public class ImplementacijaController {
 
 
     private void attachListeners(){
-        mainFrame.getImp1RB().addActionListener(new ActionListener() {
+        mainFrame.getFirmetinaBajo().addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
-                System.out.println("Pritisao impl1 dugme");
-                Implemetacija1 implemetacija1 = new Implemetacija1();
-                implemetacija1.setRaspored(Cuvac.getInstance().getRaspored());
-                implemetacija1.nejmarUPetercu();
-                Cuvac.getInstance().setRaspored(implemetacija1.getRaspored());
-                Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
-                //nema smisla da diramo ovo jer bi bilo glupo ako smo formatirali kao impl1
-                mainFrame.getComboBox().setVisible(false);
-                mainFrame.repaint();
-                mainFrame.revalidate();
-                new DateFrame(mainFrame);
+            public void actionPerformed(ActionEvent e) {
+                if(mainFrame.getImp2RB().isSelected()){
+                    Cuvac.getInstance().getRaspored().nejmarUPetercu(1);
+                    Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
+                    new DateFrame(mainFrame);
+                }else if(mainFrame.getImp1RB().isSelected()){
+                    Cuvac.getInstance().getRaspored().nejmarUPetercu(0);
+                    Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
+                    new DateFrame(mainFrame);
+                }else{
+                    JOptionPane.showMessageDialog(null,"IGRAM IGRAM VRTIM SE KO CIGRA< BAJO SELEKTUJ IMPLEMENTACIJU");
+                }
             }
         });
-
-        mainFrame.getImp2RB().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                Implemetacija2 implemetacija2 = new Implemetacija2();
-                implemetacija2.setRaspored(Cuvac.getInstance().getRaspored());
-                implemetacija2.nejmarUPetercu();
-                Cuvac.getInstance().setRaspored(implemetacija2.getRaspored());
-                Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
-                //nema smisla da diramo ovo jer bi bilo glupo ako smo formatirali kao impl1
-                mainFrame.getComboBox().setVisible(false);
-                mainFrame.repaint();
-                mainFrame.revalidate();
-                new DateFrame(mainFrame);
-            }
-        });
-
     }
 }

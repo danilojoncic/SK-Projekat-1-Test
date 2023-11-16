@@ -61,7 +61,7 @@ public class BoschSDSPlusController {
 
             }
 
-            private static List<Dogadjaj> izdvojiPodskup(List<Dogadjaj> lista, int pocetniIndeks, int krajnjiIndeks) {
+            private List<Dogadjaj> izdvojiPodskup(List<Dogadjaj> lista, int pocetniIndeks, int krajnjiIndeks) {
 
                 if (pocetniIndeks < 0 || krajnjiIndeks >= lista.size() || pocetniIndeks > krajnjiIndeks) {
                     throw new IllegalArgumentException("Neispravni indeksi");

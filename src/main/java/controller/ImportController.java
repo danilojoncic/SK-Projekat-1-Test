@@ -1,9 +1,9 @@
 package controller;
 
+import model.Specifikacija;
+import model.boljeRijesenje.Manager;
 import model.boljeRijesenje.Osobine;
 import model.boljeRijesenje.Raspored;
-
-import org.raf.Implemetacija1;
 import view.MainFrame;
 
 import javax.swing.*;
@@ -13,9 +13,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 public class ImportController{
 
+    Specifikacija specifikacija;
     MainFrame mainFrame;
     Raspored raspored;
 
@@ -29,16 +31,45 @@ public class ImportController{
         mainFrame.getImportDugme().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("SKENIRAJ");
+
+                if(mainFrame.getImp1RB().isSelected()){
+                    System.out.println("USAO ZA 1");
+                    try {
+                        System.out.println("POKUSAO SAM");
+                        Class.forName("raf.paket.Implemetacija2");
+                        System.out.println("SVRSIO SAM POSAO");
+                    } catch (ClassNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    specifikacija = Manager.getSpecifikacija();
+                    Cuvac.getInstance().setImplementacija(specifikacija);
+
+                }else if(mainFrame.getImp2RB().isSelected()){
+                    System.out.println("IMAM 0");
+                    try {
+                        System.out.println("USAO ZA 0");
+                        Class.forName("org.raf.paket.Implemetacija1");
+                        System.out.println("SVRSIO POSAO ZA 0");
+                    } catch (ClassNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    specifikacija = Manager.getSpecifikacija();
+                    Cuvac.getInstance().setImplementacija(specifikacija);
+                }else{
+                    JOptionPane.showMessageDialog(null,"Bajo moj izaberi implementaciju i idu u 3 p...");
+                }
+                mainFrame.getImp1RB().setSelected(false);
+                mainFrame.getImp2RB().setSelected(false);
                 JFileChooser jFileChooser = new JFileChooser();
                 jFileChooser.setCurrentDirectory(new File("/Desktop"));
                 int response = jFileChooser.showOpenDialog(null);
-                Implemetacija1 implemetacija1 = new Implemetacija1();
                 if(response == JFileChooser.APPROVE_OPTION){
                     //u buduce svaki rad nad modelom bi zahtjevao metode iz implementaicje
                     //implemetacija1.ucitajRaspored(jFileChooser.getSelectedFile().getAbsolutePath().toString());
                     //raspored = implemetacija1.getRaspored();
-                    implemetacija1.ucitajRaspored(jFileChooser.getSelectedFile().getAbsolutePath());
-                    raspored = implemetacija1.getRaspored();
+                    Cuvac.getInstance().setRaspored(Cuvac.getInstance().getImplementacija().ucitajRaspored(jFileChooser.getSelectedFile().getAbsolutePath()));
+                    raspored = Cuvac.getInstance().getRaspored();
                     System.out.println(raspored.getDogadjaji());
                     mainFrame.setNestoUcitano(true);
                     Cuvac.getInstance().setRaspored(raspored);
@@ -48,7 +79,11 @@ public class ImportController{
                     System.out.println(raspored.getHeader().toString());
                     Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().raspored);
                 }
-                //citajSaForumaU2Ujutro();
+                try {
+                    citajSaForumaU2Ujutro();
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
                 //initListaTermina(new ArrayList<>());
 //                System.out.println("SVE UCIONICE SU ISPOD");
 //                for(String s : raspored.getBozePomozi().get(6).keySet()){
@@ -74,10 +109,6 @@ public class ImportController{
 
 //        Cuvac.getInstance().getRaspored().setSlobodniTerminiZaGledanjeGospodaraPrstenovaBluRay(zauzetostTerminaZaUcionice);
     }
-    private void izbaciZauzete(List<String> lista, int pocetak, int kraj){
-
-    }
-
 
     private List<String> initListaTermina(List<String> lista){
         for(int i = 9; i < 22; i++){
@@ -123,7 +154,6 @@ public class ImportController{
                 Osobine osobine = new Osobine(Integer.parseInt(niz[indexBroja]),b1,b2);
                 tabKupujemProdajem.put(tempUcionica,osobine);
             };
-            //tab limundo se svaki put kada se ucitava, modifikuje, ili refreshuje da se uradi
             Cuvac.getInstance().getRaspored().setTabLimundo(tabKupujemProdajem);
         } catch (IOException e) {
             throw new RuntimeException(e);

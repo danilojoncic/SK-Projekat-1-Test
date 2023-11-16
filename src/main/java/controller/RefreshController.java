@@ -21,10 +21,19 @@ public class RefreshController {
         this.mainFrame.getRefreshDugme().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(mainFrame.getImp1RB().isSelected()){
+
+                }else if(mainFrame.getImp2RB().isSelected()){
+
+                }
+
+
+
                 String text = mainFrame.getFilterTA().getText();
                 List<Dogadjaj> filtriraniDogadjaji =  Cuvac.getInstance().getRaspored().vratiFiltrirano(text);
-                Cuvac.getInstance().getRaspored().setDogadjaji(filtriraniDogadjaji);
-                Cuvac.getInstance().getRaspored().refresh(filtriraniDogadjaji);
+                //Cuvac.getInstance().getRaspored().setDogadjaji(filtriraniDogadjaji);
+                Cuvac.getInstance().getImplementacija().pretraziRaspred(text);
+                //Cuvac.getInstance().getRaspored().refresh(filtriraniDogadjaji);
                 Cuvac.getInstance().setOriginalBrojDogadjaja(filtriraniDogadjaji.size());
             }
         });

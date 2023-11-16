@@ -32,7 +32,7 @@ public class ZoviRedzicaController {
                     }
 
 
-                    if(addFrame.getListaPolja().get(i).getText().isBlank()){
+                    if(addFrame.getListaPolja().get(i).getText().isEmpty()){
                         elementi.add(addFrame.getjComboBoxes().get(i).getSelectedItem().toString());
                         //System.out.println("index i : " + i + " " + jComboBoxes.get(i).getSelectedItem().toString());
                     }else{

@@ -1,9 +1,6 @@
 package controller.export;
 
 import controller.Cuvac;
-
-import org.raf.Implemetacija1;
-
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.OrientationRequested;
@@ -27,13 +24,8 @@ public class ConfirmController {
         exportFrame.getConfirm().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Implemetacija1 implemetacija1 = new Implemetacija1();
-                implemetacija1.setRaspored(Cuvac.getInstance().getRaspored());
-                implemetacija1.getRaspored().setHeader(Cuvac.getInstance().getRaspored().getHeader());
                 String type;
                 String fileName;
-
-
                 if (exportFrame.getRbPDF().isSelected()) {
                     type = "pdf";
                     //mali bag za datume koji se rijesava na komponenti koja radi sa datumima
@@ -61,10 +53,10 @@ public class ConfirmController {
                     }
                 }else if(exportFrame.getRbJSON().isSelected()){
                     type = "json";
-                    implemetacija1.kreirajRaspored("filename",type);
+                    Cuvac.getInstance().getImplementacija().exportujRaspored("filename",type);
                 }else if(exportFrame.getRbCSV().isSelected()){
                     type = "csv";
-                    implemetacija1.kreirajRaspored("output.csv",type);
+                    Cuvac.getInstance().getImplementacija().exportujRaspored("filename",type);
                 }
                 exportFrame.dispose();
             }

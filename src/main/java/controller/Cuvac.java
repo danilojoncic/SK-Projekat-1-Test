@@ -1,5 +1,6 @@
 package controller;
 
+import model.Specifikacija;
 import model.boljeRijesenje.Raspored;
 
 import java.util.List;
@@ -9,6 +10,7 @@ public class Cuvac {
     int kolonaDana;
     Raspored raspored;
     List<String> header;
+    private Specifikacija implementacija;
 
     int originalBrojDogadjaja;
     private static Cuvac instance = null;
@@ -34,6 +36,19 @@ public class Cuvac {
 
     public Raspored getRaspored() {
         return raspored;
+    }
+
+
+    public Specifikacija getImplementacija() {
+        return implementacija;
+    }
+
+    public void setImplementacija(Specifikacija implementacija) {
+        this.implementacija = implementacija;
+    }
+
+    public static void setInstance(Cuvac instance) {
+        Cuvac.instance = instance;
     }
 
     public void setRaspored(Raspored raspored) {

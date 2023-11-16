@@ -9,6 +9,7 @@ import java.awt.*;
 public class MainFrame extends JFrame {
 
     String putanjaDoTrenutnogRasporeda;
+    JButton firmetinaBajo;
     boolean nestoUcitano = false;
     JButton refreshDugme;
 
@@ -25,6 +26,7 @@ public class MainFrame extends JFrame {
     JRadioButton imp1RB;
     JButton editPoljeDugme;
     JRadioButton imp2RB;
+    JRadioButton drugogDanaJeBogRekaoNekaBudeSvetla;
     JTextField filterTA;
 
     JScrollPane jScrollPane;
@@ -65,6 +67,8 @@ public class MainFrame extends JFrame {
         tabelaRasporeda = new JTable(model);
         imp1RB = new JRadioButton("IMP 1");
         imp2RB = new JRadioButton("IMP 2");
+        firmetinaBajo = new JButton("Formatiraj ovo bajo!");
+        drugogDanaJeBogRekaoNekaBudeSvetla = new JRadioButton("SVE");
         refreshDugme = new JButton("Zaledi filter");
         obrisiDogadjajDugme = new JButton("Obrisi red");
         model = new DefaultTableModel();
@@ -81,8 +85,10 @@ public class MainFrame extends JFrame {
         exportDugme.setFocusable(false);
 
 
+
         izborImplementacije.add(imp1RB);
         izborImplementacije.add(imp2RB);
+        izborImplementacije.add(drugogDanaJeBogRekaoNekaBudeSvetla);
 
 
         filterTA.setSize(50,10);
@@ -107,7 +113,7 @@ public class MainFrame extends JFrame {
         miniPanel2.setPreferredSize(new Dimension(50,50));
         miniPanel1.setPreferredSize(new Dimension(50,50));
         miniPanel1.add(refreshDugme);
-
+        miniPanel2.add(firmetinaBajo);
         miniPanel2.add(importDugme);
         miniPanel2.add(exportDugme);
 
@@ -305,5 +311,18 @@ public class MainFrame extends JFrame {
 
     public JComboBox getComboBoxZaNedelje() {
         return comboBoxZaNedelje;
+    }
+
+
+    public void setComboBoxZaNedelje(JComboBox comboBoxZaNedelje) {
+        this.comboBoxZaNedelje = comboBoxZaNedelje;
+    }
+
+    public JButton getFirmetinaBajo() {
+        return firmetinaBajo;
+    }
+
+    public void setFirmetinaBajo(JButton firmetinaBajo) {
+        this.firmetinaBajo = firmetinaBajo;
     }
 }
