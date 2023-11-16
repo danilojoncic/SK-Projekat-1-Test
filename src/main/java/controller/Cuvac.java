@@ -12,6 +12,8 @@ public class Cuvac {
     List<String> header;
     private Specifikacija implementacija;
 
+    //null pointer protection
+    private String filterString = new String(" ");
     int originalBrojDogadjaja;
     private static Cuvac instance = null;
 
@@ -69,5 +71,13 @@ public class Cuvac {
 
     public void setOriginalBrojDogadjaja(int originalBrojDogadjaja) {
         this.originalBrojDogadjaja = originalBrojDogadjaja;
+    }
+
+    public String getFilterString() {
+        return filterString;
+    }
+
+    public void setFilterString(String filterString) {
+        this.filterString = filterString;
     }
 }

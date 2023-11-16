@@ -35,6 +35,7 @@ public class DeleteColumnController {
                         }
                         i++;
                     }
+                    //Cuvac.getInstance().getImplementacija().sacuvajRaspored();
                     Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
                     Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
                     mainFrame.getComboBox().removeItem(s1);

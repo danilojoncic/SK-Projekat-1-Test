@@ -31,14 +31,10 @@ public class ImportController{
         mainFrame.getImportDugme().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("SKENIRAJ");
 
                 if(mainFrame.getImp1RB().isSelected()){
-                    System.out.println("USAO ZA 1");
                     try {
-                        System.out.println("POKUSAO SAM");
                         Class.forName("raf.paket.Implemetacija2");
-                        System.out.println("SVRSIO SAM POSAO");
                     } catch (ClassNotFoundException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -46,37 +42,35 @@ public class ImportController{
                     Cuvac.getInstance().setImplementacija(specifikacija);
 
                 }else if(mainFrame.getImp2RB().isSelected()){
-                    System.out.println("IMAM 0");
                     try {
-                        System.out.println("USAO ZA 0");
                         Class.forName("org.raf.paket.Implemetacija1");
-                        System.out.println("SVRSIO POSAO ZA 0");
                     } catch (ClassNotFoundException ex) {
                         throw new RuntimeException(ex);
                     }
                     specifikacija = Manager.getSpecifikacija();
                     Cuvac.getInstance().setImplementacija(specifikacija);
+
+
                 }else{
-                    JOptionPane.showMessageDialog(null,"Bajo moj izaberi implementaciju i idu u 3 p...");
+                    JOptionPane.showMessageDialog(null,"Prije importa moras izabrati odgovarajucu implementaciju!");
+                    return;
                 }
                 mainFrame.getImp1RB().setSelected(false);
                 mainFrame.getImp2RB().setSelected(false);
+                mainFrame.repaint();
+                mainFrame.revalidate();
+
                 JFileChooser jFileChooser = new JFileChooser();
                 jFileChooser.setCurrentDirectory(new File("/Desktop"));
                 int response = jFileChooser.showOpenDialog(null);
                 if(response == JFileChooser.APPROVE_OPTION){
-                    //u buduce svaki rad nad modelom bi zahtjevao metode iz implementaicje
-                    //implemetacija1.ucitajRaspored(jFileChooser.getSelectedFile().getAbsolutePath().toString());
-                    //raspored = implemetacija1.getRaspored();
+                    //ovo je rad sa implementacijuom koju pozivamo preko specifikacije
                     Cuvac.getInstance().setRaspored(Cuvac.getInstance().getImplementacija().ucitajRaspored(jFileChooser.getSelectedFile().getAbsolutePath()));
                     raspored = Cuvac.getInstance().getRaspored();
-                    System.out.println(raspored.getDogadjaji());
                     mainFrame.setNestoUcitano(true);
                     Cuvac.getInstance().setRaspored(raspored);
                     Cuvac.getInstance().setHeader(raspored.getHeader().getStavkeDogadjaja());
                     Cuvac.getInstance().setOriginalBrojDogadjaja(Cuvac.getInstance().getRaspored().getDogadjaji().size());
-                    System.out.println(raspored);
-                    System.out.println(raspored.getHeader().toString());
                     Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().raspored);
                 }
                 try {

@@ -26,14 +26,9 @@ public class RefreshController {
                 }else if(mainFrame.getImp2RB().isSelected()){
 
                 }
-
-
-
-                String text = mainFrame.getFilterTA().getText();
+                String text = Cuvac.getInstance().getFilterString();
                 List<Dogadjaj> filtriraniDogadjaji =  Cuvac.getInstance().getRaspored().vratiFiltrirano(text);
-                //Cuvac.getInstance().getRaspored().setDogadjaji(filtriraniDogadjaji);
                 Cuvac.getInstance().getImplementacija().pretraziRaspred(text);
-                //Cuvac.getInstance().getRaspored().refresh(filtriraniDogadjaji);
                 Cuvac.getInstance().setOriginalBrojDogadjaja(filtriraniDogadjaji.size());
             }
         });
