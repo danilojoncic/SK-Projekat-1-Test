@@ -1,9 +1,9 @@
 package controller;
 
-import controller.add.DodajController;
-import controller.date.BoschSDSPlusController;
-import controller.date.DateController;
-import controller.edit.EditController;
+import controller.add.UpaliAddFrame;
+import controller.date.IzborNedeljaController;
+import controller.date.UpaliDateFrameController;
+import controller.edit.UpaliEditFrameController;
 import controller.export.ExportController;
 import view.MainFrame;
 
@@ -15,15 +15,15 @@ public class ControllManager {
     ExportController exportController;
     ImportController importController;
     FilterController filterController;
-    EditController editController;
+    UpaliEditFrameController upaliEditFrameController;
 
-    DateController dateController;
+    UpaliDateFrameController upaliDateFrameController;
     DeleteDogadjajController deleteDogadjajController;
-    DodajController dodajController;
+    UpaliAddFrame upaliAddFrame;
     RefreshController refreshController;
     ImplementacijaController implementacijaController;
 
-    BoschSDSPlusController boschSDSPlusController;
+    IzborNedeljaController boschSDSPlusController;
 
     public ControllManager(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -32,16 +32,16 @@ public class ControllManager {
     }
 
     private void initOthers(){
-        editController = new EditController(mainFrame);
-        dodajController = new DodajController(mainFrame);
+        upaliEditFrameController = new UpaliEditFrameController(mainFrame);
+        upaliAddFrame = new UpaliAddFrame(mainFrame);
         deleteDogadjajController = new DeleteDogadjajController(mainFrame);
         deleteCollumnController = new DeleteColumnController(mainFrame);
         exportController = new ExportController(mainFrame);
         importController = new ImportController(mainFrame);
         filterController = new FilterController(mainFrame);
-        dateController = new DateController(mainFrame);
+        upaliDateFrameController = new UpaliDateFrameController(mainFrame);
         refreshController = new RefreshController(mainFrame);
         implementacijaController = new ImplementacijaController(mainFrame);
-        boschSDSPlusController = new BoschSDSPlusController(mainFrame);
+        boschSDSPlusController = new IzborNedeljaController(mainFrame);
     }
 }

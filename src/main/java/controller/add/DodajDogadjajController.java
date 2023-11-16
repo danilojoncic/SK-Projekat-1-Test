@@ -4,7 +4,7 @@ import controller.Cuvac;
 import controller.Ubacivac;
 import model.boljeRijesenje.Dogadjaj;
 import model.boljeRijesenje.Raspored;
-import controller.add.AddFrame;
+import view.AddFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,9 +12,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZoviRedzicaController {
+public class DodajDogadjajController {
     AddFrame addFrame;
-    public ZoviRedzicaController(AddFrame addFrame){
+    public DodajDogadjajController(AddFrame addFrame){
         this.addFrame = addFrame;
         attachListeners();
     }

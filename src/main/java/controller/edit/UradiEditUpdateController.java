@@ -4,7 +4,7 @@ import controller.Cuvac;
 import controller.Ubacivac;
 import model.boljeRijesenje.Dogadjaj;
 import model.boljeRijesenje.Raspored;
-import controller.edit.EditFrame;
+import view.EditFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,10 +12,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SabotazaController {
+public class UradiEditUpdateController {
     EditFrame editFrame;
 
-    public SabotazaController(EditFrame editFrame) {
+    public UradiEditUpdateController(EditFrame editFrame) {
         this.editFrame = editFrame;
         attachListeners();
     }

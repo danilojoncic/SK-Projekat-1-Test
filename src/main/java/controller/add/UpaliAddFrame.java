@@ -1,15 +1,15 @@
 package controller.add;
 
-import controller.add.AddFrame;
+import view.AddFrame;
 import view.MainFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DodajController {
+public class UpaliAddFrame {
     MainFrame mainFrame;
-    public DodajController(MainFrame mainFrame) {
+    public UpaliAddFrame(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         attachListeners();
     }

@@ -1,8 +1,7 @@
 package controller;
 
-import controller.date.DateFrame;
+import view.DateFrame;
 import model.Specifikacija;
-import model.boljeRijesenje.Manager;
 import view.MainFrame;
 
 import javax.swing.*;

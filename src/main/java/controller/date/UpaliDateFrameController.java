@@ -1,16 +1,16 @@
 package controller.date;
 
-import controller.date.DateFrame;
+import view.DateFrame;
 import view.MainFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DateController {
+public class UpaliDateFrameController {
     MainFrame mainFrame;
 
-    public DateController(MainFrame mainFrame) {
+    public UpaliDateFrameController(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         attachListeners();
 

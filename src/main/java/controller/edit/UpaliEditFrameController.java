@@ -1,14 +1,15 @@
 package controller.edit;
 
+import view.EditFrame;
 import view.MainFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class EditController {
+public class UpaliEditFrameController {
     MainFrame mainFrame;
-    public EditController(MainFrame mainFrame) {
+    public UpaliEditFrameController(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         attachListeners();
     }

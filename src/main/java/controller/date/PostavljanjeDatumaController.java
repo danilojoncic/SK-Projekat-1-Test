@@ -3,19 +3,19 @@ package controller.date;
 import controller.Cuvac;
 import controller.Ubacivac;
 import model.boljeRijesenje.Dogadjaj;
+import view.DateFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 
-public class RudarenjeURudnikuController {
+public class PostavljanjeDatumaController {
     DateFrame dateFrame;
     Map<Date,Integer> hm = new LinkedHashMap<>();
 
-    public RudarenjeURudnikuController(DateFrame dateFrame) {
+    public PostavljanjeDatumaController(DateFrame dateFrame) {
         this.dateFrame = dateFrame;
         hm = createDateIndexMap(2023);
         attachListeners();

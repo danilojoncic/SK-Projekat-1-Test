@@ -1,34 +1,36 @@
-package controller.edit;
+package view;
 
 import controller.Cuvac;
 import controller.Ubacivac;
-import model.boljeRijesenje.Dogadjaj;
+import controller.add.DodajDogadjajController;
 import view.MainFrame;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditFrame extends JFrame {
+public class AddFrame extends JFrame {
 
     MainFrame mainFrame;
     List<JCheckBox> jCheckBoxes;
     List<JTextField> listaPolja;
-    Dogadjaj orginal;
+    DodajDogadjajController dodajDogadjajController;
     private ArrayList<String> dani = new ArrayList<>();
-    SabotazaController sabotazaController;
+    private List<JComboBox> jComboBoxes;
 
     JButton potvrdi;
 
-    public EditFrame(MainFrame mainFrame){
+    public AddFrame(MainFrame mainFrame){
         this.mainFrame = mainFrame;
         initialise();
     }
 
     public void initialise(){
         jCheckBoxes = new ArrayList<>();
+        jComboBoxes = new ArrayList<>();
         listaPolja = new ArrayList<>();
-        this.setTitle("Promijeni dogadjaj");
+        this.setTitle("Dodaj dogadjaj");
         this.setSize(750,550);
         this.setResizable(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -38,45 +40,27 @@ public class EditFrame extends JFrame {
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
         int i = 0;
         for (String s : Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja()) {
+            Label label = new Label(s);
             JCheckBox jCheckBox = new JCheckBox();
+            JComboBox jComboBox = new JComboBox<>();
+            zoviRedzica(jComboBox,i);
+            //jComboBox.addItem((Component) Cuvac.getInstance().getRaspored().getBozePomozi().get(i).keySet());
             JTextField jTextField = new JTextField(" ");
+            panel.add(label);
+            panel.add(jComboBox);
             panel.add(jTextField);
             panel.add(jCheckBox);
             listaPolja.add(jTextField);
+            jComboBoxes.add(jComboBox);
             jCheckBoxes.add(jCheckBox);
             i++;
         }
-        int indeksOdSelektovanogOrginala = vratiIndeks();
-        orginal = Cuvac.getInstance().getRaspored().getDogadjaji().get(indeksOdSelektovanogOrginala);
-        initFields();
         potvrdi = new JButton("Potvrdi");
         panel.add(potvrdi);
         this.add(panel);
+        //this.pack();
+        dodajDogadjajController = new DodajDogadjajController(this);
         this.setVisible(true);
-        sabotazaController = new SabotazaController(this);
-    }
-
-
-    private void initFields(){
-        Dogadjaj dogadjaj;
-        dogadjaj = Cuvac.getInstance().getRaspored().getDogadjaji().get(mainFrame.getTabelaRasporeda().getSelectedRow());
-        for(int i = 0; i < dogadjaj.getStavkeDogadjaja().size();i++){
-            listaPolja.get(i).setText(dogadjaj.getStavkeDogadjaja().get(i));
-        }
-    }
-    private int vratiIndeks(){
-        return mainFrame.getTabelaRasporeda().getSelectedRow();
-    }
-
-    public void zoviRedzica(JComboBox jComboBox,int index){
-        jComboBox.addItem(" ");
-        for(String s : Cuvac.getInstance().getRaspored().getBozePomozi().get(index).keySet()){
-            if(Ubacivac.getInstance().postojiUComboBox(jComboBox,s)){
-                continue;
-            }
-            jComboBox.addItem(s);
-            jComboBox.setSelectedItem(" ");
-        }
     }
 
     public MainFrame getMainFrame() {
@@ -103,20 +87,20 @@ public class EditFrame extends JFrame {
         this.listaPolja = listaPolja;
     }
 
-    public Dogadjaj getOrginal() {
-        return orginal;
-    }
-
-    public void setOrginal(Dogadjaj orginal) {
-        this.orginal = orginal;
-    }
-
     public ArrayList<String> getDani() {
         return dani;
     }
 
     public void setDani(ArrayList<String> dani) {
         this.dani = dani;
+    }
+
+    public List<JComboBox> getjComboBoxes() {
+        return jComboBoxes;
+    }
+
+    public void setjComboBoxes(List<JComboBox> jComboBoxes) {
+        this.jComboBoxes = jComboBoxes;
     }
 
     public JButton getPotvrdi() {
@@ -126,4 +110,16 @@ public class EditFrame extends JFrame {
     public void setPotvrdi(JButton potvrdi) {
         this.potvrdi = potvrdi;
     }
+
+    public void zoviRedzica(JComboBox jComboBox,int index){
+        jComboBox.addItem(" ");
+        for(String s : Cuvac.getInstance().getRaspored().getBozePomozi().get(index).keySet()){
+            if(Ubacivac.getInstance().postojiUComboBox(jComboBox,s)){
+                continue;
+            }
+            jComboBox.addItem(s);
+            jComboBox.setSelectedItem(" ");
+        }
+    }
+
 }

@@ -1,8 +1,9 @@
-package controller.date;
+package view;
 
 import com.toedter.calendar.JDateChooser;
 import controller.Cuvac;
 import controller.Ubacivac;
+import controller.date.PostavljanjeDatumaController;
 import view.MainFrame;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateFrame extends JFrame {
-    JLabel label;
+    public JLabel label;
     MainFrame mainFrame;
     JComboBox jCheckBox;
     JButton krajniDatum;
@@ -20,7 +21,7 @@ public class DateFrame extends JFrame {
     private ArrayList<String> dani = new ArrayList<>();
 
     JDateChooser jDateChooser;
-    RudarenjeURudnikuController rudarenjeURudnikuController;
+    PostavljanjeDatumaController postavljanjeDatumaController;
     JButton pocetniDatum;
 
     public DateFrame(MainFrame mainFrame){
@@ -57,7 +58,7 @@ public class DateFrame extends JFrame {
         this.add(krajniDatum);
         this.add(ucitajDatumeDugme);
         this.setVisible(true);
-        rudarenjeURudnikuController = new RudarenjeURudnikuController(this);
+        postavljanjeDatumaController = new PostavljanjeDatumaController(this);
     }
 
 

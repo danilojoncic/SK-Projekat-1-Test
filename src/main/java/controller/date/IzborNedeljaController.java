@@ -11,11 +11,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoschSDSPlusController {
+public class IzborNedeljaController {
     private MainFrame mainFrame;
 
 
-    public BoschSDSPlusController(MainFrame mainFrame) {
+    public IzborNedeljaController(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
 
         attachListeners();
