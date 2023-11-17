@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PostavljanjeDatumaController {
     DateFrame dateFrame;
@@ -83,7 +85,8 @@ public class PostavljanjeDatumaController {
                             }
                             i++;
                         }
-                        List<Date> datumi = hm.keySet().stream().toList();
+
+                        List<Date> datumi = hm.keySet().stream().collect(Collectors.toList());
                         for(int j = x; j <= y;j++){
                             if(hm.get(datumi.get(j)) == index){
                                 dan = datumi.get(j);

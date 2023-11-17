@@ -36,6 +36,7 @@ public class ImportController{
                 if(mainFrame.getImp1RB().isSelected()){
                     try {
                         Class.forName("raf.paket.Implemetacija2");
+                        //Class.forName("Implemetacija2");
                     } catch (ClassNotFoundException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -45,6 +46,7 @@ public class ImportController{
                 }else if(mainFrame.getImp2RB().isSelected()){
                     try {
                         Class.forName("org.raf.paket.Implemetacija1");
+                        //Class.forName("Implemetacija2");
                     } catch (ClassNotFoundException ex) {
                         throw new RuntimeException(ex);
                     }
