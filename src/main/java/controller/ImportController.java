@@ -3,6 +3,7 @@ package controller;
 import model.Specifikacija;
 import model.boljeRijesenje.Manager;
 import model.boljeRijesenje.Osobine;
+import model.boljeRijesenje.Par;
 import model.boljeRijesenje.Raspored;
 import view.MainFrame;
 
@@ -78,9 +79,24 @@ public class ImportController{
                 } catch (FileNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
-                //initListaTermina(new ArrayList<>());
-//                System.out.println("SVE UCIONICE SU ISPOD");
-//                for(String s : raspored.getBozePomozi().get(6).keySet()){
+                //drzi vodu dok majstori odu
+                //init na 0 jer inace nece raditi
+//                int indeksDana = 0;
+//                int indeksUcionice = 0;
+//                for (String s : Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja()) {
+//                    if(s.equalsIgnoreCase("Dan")){
+//                        indeksDana = Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja().indexOf(s);
+//                    }
+//                    if(s.equalsIgnoreCase("Učionica")){
+//                        indeksUcionice = Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja().indexOf(s);
+//                    }
+//                }
+//                System.out.println("PRIJE");
+//                Cuvac.getInstance().getRaspored().metniSveURaspored(indeksDana,indeksUcionice);
+//                Par par = new Par("PON","Rg07 (u)");
+//                System.out.println("POSLIJE");
+//                //List<String> lista = Cuvac.getInstance().getRaspored().getSlobodniTerminiZaGledanjeGospodaraPrstenovaBluRay().get(par);
+//                for(String s : Cuvac.getInstance().getRaspored().getSlobodniTerminiZaGledanjeGospodaraPrstenovaBluRay().get(par)){
 //                    System.out.println(s);
 //                }
             }
