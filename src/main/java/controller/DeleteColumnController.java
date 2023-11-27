@@ -1,6 +1,7 @@
 package controller;
 
-import view.MainFrame;
+
+import view.WrapperFrame;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -9,20 +10,20 @@ import java.awt.event.ActionListener;
 
 public class DeleteColumnController {
 
-    MainFrame mainFrame;
+    WrapperFrame wrapperFrame;
 
-    public DeleteColumnController(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public DeleteColumnController(WrapperFrame wrapperFrame) {
+        this.wrapperFrame = wrapperFrame;
         attachListeners();
     }
 
     private void attachListeners() {
-        mainFrame.getEditDugme().addActionListener(new ActionListener() {
+        wrapperFrame.mFrame.getDeleteColumnButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (mainFrame.isNestoUcitano()) {
-                    int index = mainFrame.getComboBox().getSelectedIndex();
-                    String s1 = (String)mainFrame.getComboBox().getSelectedItem();
+                if (wrapperFrame.isJesteNestoUciteno()) {
+                    int index = wrapperFrame.mFrame.getComboBox1().getSelectedIndex();
+                    String s1 = (String)wrapperFrame.mFrame.getComboBox1().getSelectedItem();
                     System.out.println(s1);
                     int i = 0;
                     for (String s : Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja()) {
@@ -37,8 +38,8 @@ public class DeleteColumnController {
                     }
                     //Cuvac.getInstance().getImplementacija().sacuvajRaspored();
                     Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
-                    Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
-                    mainFrame.getComboBox().removeItem(s1);
+                    Ubacivac.getInstance().ubaciBackendUTabelu(wrapperFrame,Cuvac.getInstance().getRaspored());
+                    wrapperFrame.mFrame.getComboBox1().removeItem(s1);
                 }
             }
         });

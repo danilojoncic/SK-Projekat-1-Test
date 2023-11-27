@@ -2,7 +2,7 @@ package controller;
 
 import model.boljeRijesenje.Dogadjaj;
 import model.boljeRijesenje.Raspored;
-import view.MainFrame;
+import view.WrapperFrame;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
@@ -11,23 +11,23 @@ import java.io.IOException;
 import java.util.List;
 
 public class FilterController {
-    MainFrame mainFrame;
+    WrapperFrame wrapperFrame;
 
 
-    public FilterController(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public FilterController(WrapperFrame wrapperFrame) {
+        this.wrapperFrame = wrapperFrame;
         attachListeners();
     }
 
     private void attachListeners(){
-        mainFrame.getFilterDugme().addActionListener(new ActionListener() {
+        wrapperFrame.mFrame.getFilterButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String text = mainFrame.getFilterTA().getText();
+                String text = wrapperFrame.mFrame.getTextField1().getText();
                 Cuvac.getInstance().setFilterString(text);
-                mainFrame.getFilterTA().setText("");
+                wrapperFrame.mFrame.getTextField1().setText("");
                 Raspored raspored = Cuvac.getInstance().raspored;
-                if(mainFrame.isNestoUcitano()){
+                if(wrapperFrame.isJesteNestoUciteno()){
                     //rijesenje
 
                     List<String> header = Cuvac.getInstance().getHeader();
@@ -56,9 +56,9 @@ public class FilterController {
                         }
 
                     }
-                    mainFrame.getTabelaRasporeda().setModel(model);
-                    mainFrame.getTabelaRasporeda().revalidate();
-                    mainFrame.getTabelaRasporeda().repaint();
+                    wrapperFrame.mFrame.getTabela().setModel(model);
+                    wrapperFrame.revalidate();
+                    wrapperFrame.repaint();
 //                    raspored.refresh(raspored.vratiFiltrirano(text));
 //                    Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,raspored);
                 }

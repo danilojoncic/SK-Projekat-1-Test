@@ -2,7 +2,7 @@ package controller;
 
 import model.boljeRijesenje.Dogadjaj;
 import model.boljeRijesenje.Raspored;
-import view.MainFrame;
+import view.WrapperFrame;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -27,16 +27,16 @@ public class Ubacivac {
 
 
 
-    public void ubaciBackendUTabelu(MainFrame mainFrame, Raspored raspored){
+    public void ubaciBackendUTabelu(WrapperFrame wrapperFrame, Raspored raspored){
         List<String> header = raspored.getHeader().getStavkeDogadjaja();
         String[] kolone = new String[header.size()];
         kolone = header.toArray(kolone);
-        mainFrame.getComboBox().setVisible(true);
+        wrapperFrame.mFrame.getComboBox1().setVisible(true);
         for (String s : header) {
-            if(postojiUComboBox(mainFrame.getComboBox(),s)){
+            if(postojiUComboBox(wrapperFrame.mFrame.getComboBox1(),s)){
                 continue;
             }
-            mainFrame.getComboBox().addItem(s);
+            wrapperFrame.mFrame.getComboBox1().addItem(s);
         }
         DefaultTableModel model = new DefaultTableModel(kolone, 0);
         int index = 1;
@@ -47,9 +47,9 @@ public class Ubacivac {
             model.addRow(red);
             System.out.println(index++);
         }
-        mainFrame.getTabelaRasporeda().setModel(model);
-        mainFrame.revalidate();
-        mainFrame.repaint();
+        wrapperFrame.mFrame.getTabela().setModel(model);
+        wrapperFrame.revalidate();
+        wrapperFrame.repaint();
     }
 
     public boolean postojiUComboBox(JComboBox jComboBox,String input){

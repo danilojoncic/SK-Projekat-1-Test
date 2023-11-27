@@ -2,34 +2,34 @@ package controller;
 
 import view.DateFrame;
 import model.Specifikacija;
-import view.MainFrame;
+import view.WrapperFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ImplementacijaController {
-    MainFrame mainFrame;
+    WrapperFrame wrapperFrame;
     Specifikacija specifikacija;
 
-    public ImplementacijaController(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public ImplementacijaController(WrapperFrame wrapperFrame) {
+        this.wrapperFrame = wrapperFrame;
         attachListeners();
     }
 
 
     private void attachListeners(){
-        mainFrame.getFirmetinaBajo().addActionListener(new ActionListener() {
+        wrapperFrame.mFrame.getFormatImplementationButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(mainFrame.getImp2RB().isSelected()){
+                if(wrapperFrame.mFrame.getFirstRadioButton().isSelected()){
                     Cuvac.getInstance().getRaspored().nejmarUPetercu(1);
-                    Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
-                    new DateFrame(mainFrame);
-                }else if(mainFrame.getImp1RB().isSelected()){
+                    Ubacivac.getInstance().ubaciBackendUTabelu(wrapperFrame,Cuvac.getInstance().getRaspored());
+                    new DateFrame(wrapperFrame);
+                }else if(wrapperFrame.mFrame.getSecondRadioButton().isSelected()){
                     Cuvac.getInstance().getRaspored().nejmarUPetercu(0);
-                    Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().getRaspored());
-                    new DateFrame(mainFrame);
+                    Ubacivac.getInstance().ubaciBackendUTabelu(wrapperFrame,Cuvac.getInstance().getRaspored());
+                    new DateFrame(wrapperFrame);
                 }else{
                     JOptionPane.showMessageDialog(null,"IGRAM IGRAM VRTIM SE KO CIGRA< BAJO SELEKTUJ IMPLEMENTACIJU");
                 }

@@ -4,7 +4,7 @@ import controller.Cuvac;
 import controller.Ubacivac;
 import controller.edit.UradiEditUpdateController;
 import model.boljeRijesenje.Dogadjaj;
-import view.MainFrame;
+
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class EditFrame extends JFrame {
 
-    MainFrame mainFrame;
+    WrapperFrame wrapperFrame;
     List<JCheckBox> jCheckBoxes;
     List<JTextField> listaPolja;
     Dogadjaj orginal;
@@ -21,8 +21,8 @@ public class EditFrame extends JFrame {
 
     JButton potvrdi;
 
-    public EditFrame(MainFrame mainFrame){
-        this.mainFrame = mainFrame;
+    public EditFrame(WrapperFrame wrapperFrame){
+        this.wrapperFrame = wrapperFrame;
         initialise();
     }
 
@@ -60,13 +60,13 @@ public class EditFrame extends JFrame {
 
     private void initFields(){
         Dogadjaj dogadjaj;
-        dogadjaj = Cuvac.getInstance().getRaspored().getDogadjaji().get(mainFrame.getTabelaRasporeda().getSelectedRow());
+        dogadjaj = Cuvac.getInstance().getRaspored().getDogadjaji().get(wrapperFrame.mFrame.getTabela().getSelectedRow());
         for(int i = 0; i < dogadjaj.getStavkeDogadjaja().size();i++){
             listaPolja.get(i).setText(dogadjaj.getStavkeDogadjaja().get(i));
         }
     }
     private int vratiIndeks(){
-        return mainFrame.getTabelaRasporeda().getSelectedRow();
+        return wrapperFrame.mFrame.getTabela().getSelectedRow();
     }
 
     public void zoviRedzica(JComboBox jComboBox,int index){
@@ -80,12 +80,12 @@ public class EditFrame extends JFrame {
         }
     }
 
-    public MainFrame getMainFrame() {
-        return mainFrame;
+    public WrapperFrame getWrapperFrame() {
+        return wrapperFrame;
     }
 
-    public void setMainFrame(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public void setWrapperFrame(WrapperFrame wrapperFrame) {
+        this.wrapperFrame = wrapperFrame;
     }
 
     public List<JCheckBox> getjCheckBoxes() {

@@ -1,7 +1,7 @@
 package controller;
 
 import model.boljeRijesenje.Dogadjaj;
-import view.MainFrame;
+import view.WrapperFrame;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -11,19 +11,19 @@ import java.awt.event.ActionListener;
 
 public class DeleteDogadjajController {
 
-    MainFrame mainFrame;
-    public DeleteDogadjajController(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    WrapperFrame wrapperFrame;
+    public DeleteDogadjajController(WrapperFrame wrapperFrame) {
+        this.wrapperFrame = wrapperFrame;
         attachListeners();
     }
 
 
     private void attachListeners(){
-        this.mainFrame.getObrisiDogadjajDugme().addActionListener(new ActionListener() {
+        this.wrapperFrame.mFrame.getDeleteSelectedRowButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (mainFrame.isNestoUcitano()) {
-                    JTable tabelaRasporeda = mainFrame.getTabelaRasporeda();
+                if (wrapperFrame.isJesteNestoUciteno()) {
+                    JTable tabelaRasporeda = wrapperFrame.mFrame.getTabela();
                     int selectedRow = tabelaRasporeda.getSelectedRow();
 
                     if (selectedRow != -1) {

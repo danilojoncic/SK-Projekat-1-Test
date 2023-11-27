@@ -52,7 +52,7 @@ public class DodajDogadjajController {
                 if(rasporedTemporary.idiNaUvidUPonedeljak(dogadjaj,mojaListIndeksa)){
                     Cuvac.getInstance().getRaspored().getDogadjaji().add(dogadjaj);
                     Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
-                    Ubacivac.getInstance().ubaciBackendUTabelu(addFrame.getMainFrame(),Cuvac.getInstance().getRaspored());
+                    Ubacivac.getInstance().ubaciBackendUTabelu(addFrame.getWrapperFrame(),Cuvac.getInstance().getRaspored());
 
                 }else{
                     JOptionPane.showMessageDialog(null,"Termin je zauzet ne moze se dodati");

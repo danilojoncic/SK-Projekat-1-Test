@@ -3,7 +3,7 @@ package view;
 import controller.Cuvac;
 import controller.Ubacivac;
 import controller.add.DodajDogadjajController;
-import view.MainFrame;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AddFrame extends JFrame {
 
-    MainFrame mainFrame;
+    WrapperFrame wrapperFrame;
     List<JCheckBox> jCheckBoxes;
     List<JTextField> listaPolja;
     DodajDogadjajController dodajDogadjajController;
@@ -21,8 +21,8 @@ public class AddFrame extends JFrame {
 
     JButton potvrdi;
 
-    public AddFrame(MainFrame mainFrame){
-        this.mainFrame = mainFrame;
+    public AddFrame(WrapperFrame wrapperFrame){
+        this.wrapperFrame = wrapperFrame;
         initialise();
     }
 
@@ -63,12 +63,12 @@ public class AddFrame extends JFrame {
         this.setVisible(true);
     }
 
-    public MainFrame getMainFrame() {
-        return mainFrame;
+    public WrapperFrame getWrapperFrame() {
+        return wrapperFrame;
     }
 
-    public void setMainFrame(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public void setWrapperFrame(WrapperFrame wrapperFrame) {
+        this.wrapperFrame = wrapperFrame;
     }
 
     public List<JCheckBox> getjCheckBoxes() {

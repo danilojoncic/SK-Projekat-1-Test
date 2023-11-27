@@ -1,26 +1,27 @@
 package controller.export;
 
-import view.MainFrame;
+
+import view.WrapperFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ExportController {
-    MainFrame mainFrame;
+    WrapperFrame wrapperFrame;
 
-    public ExportController(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public ExportController(WrapperFrame wrapperFrame) {
+        this.wrapperFrame = wrapperFrame;
         attachListeners();
     }
 
     private void attachListeners() {
-        mainFrame.getExportDugme().addActionListener(new ActionListener() {
+        wrapperFrame.mFrame.getExportButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                Raspored raspored;
-                if (mainFrame.isNestoUcitano())
-                    new ExportFrame(mainFrame);
+                if (wrapperFrame.isJesteNestoUciteno())
+                    new ExportFrame(wrapperFrame);
                 else
                     JOptionPane.showMessageDialog(null,"Prvo uctajte raspored");
 //                CSVCitac csvCitac = new CSVCitac();

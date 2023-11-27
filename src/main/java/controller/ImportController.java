@@ -5,7 +5,7 @@ import model.boljeRijesenje.Manager;
 import model.boljeRijesenje.Osobine;
 import model.boljeRijesenje.Par;
 import model.boljeRijesenje.Raspored;
-import view.MainFrame;
+import view.WrapperFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,21 +19,19 @@ import java.util.Scanner;
 public class ImportController{
 
     Specifikacija specifikacija;
-    MainFrame mainFrame;
+    WrapperFrame wrapperFrame;
     Raspored raspored;
 
-    public ImportController(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public ImportController(WrapperFrame wrapperFrame) {
+        this.wrapperFrame = wrapperFrame;
         importuj();
     }
 
     public void importuj(){
-
-        mainFrame.getImportDugme().addActionListener(new ActionListener() {
+        wrapperFrame.mFrame.getImportButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                if(mainFrame.getImp1RB().isSelected()){
+                if(wrapperFrame.mFrame.getFirstRadioButton().isSelected()){
                     try {
                         Class.forName("raf.paket.Implemetacija2");
                         //Class.forName("Implemetacija2");
@@ -43,7 +41,7 @@ public class ImportController{
                     specifikacija = Manager.getSpecifikacija();
                     Cuvac.getInstance().setImplementacija(specifikacija);
 
-                }else if(mainFrame.getImp2RB().isSelected()){
+                }else if(wrapperFrame.mFrame.getSecondRadioButton().isSelected()){
                     try {
                         Class.forName("org.raf.paket.Implemetacija1");
                         //Class.forName("Implemetacija2");
@@ -58,11 +56,10 @@ public class ImportController{
                     JOptionPane.showMessageDialog(null,"Prije importa moras izabrati odgovarajucu implementaciju!");
                     return;
                 }
-                mainFrame.getImp1RB().setSelected(false);
-                mainFrame.getImp2RB().setSelected(false);
-                mainFrame.repaint();
-                mainFrame.revalidate();
-
+                wrapperFrame.mFrame.getFirstRadioButton().setSelected(false);
+                wrapperFrame.mFrame.getSecondRadioButton().setSelected(false);
+                wrapperFrame.repaint();
+                wrapperFrame.revalidate();
                 JFileChooser jFileChooser = new JFileChooser();
                 jFileChooser.setCurrentDirectory(new File("/Desktop"));
                 int response = jFileChooser.showOpenDialog(null);
@@ -70,11 +67,11 @@ public class ImportController{
                     //ovo je rad sa implementacijuom koju pozivamo preko specifikacije
                     Cuvac.getInstance().setRaspored(Cuvac.getInstance().getImplementacija().ucitajRaspored(jFileChooser.getSelectedFile().getAbsolutePath()));
                     raspored = Cuvac.getInstance().getRaspored();
-                    mainFrame.setNestoUcitano(true);
+                    wrapperFrame.setJesteNestoUciteno(true);
                     Cuvac.getInstance().setRaspored(raspored);
                     Cuvac.getInstance().setHeader(raspored.getHeader().getStavkeDogadjaja());
                     Cuvac.getInstance().setOriginalBrojDogadjaja(Cuvac.getInstance().getRaspored().getDogadjaji().size());
-                    Ubacivac.getInstance().ubaciBackendUTabelu(mainFrame,Cuvac.getInstance().raspored);
+                    Ubacivac.getInstance().ubaciBackendUTabelu(wrapperFrame,Cuvac.getInstance().raspored);
                 }
                 try {
                     citajSaForumaU2Ujutro();

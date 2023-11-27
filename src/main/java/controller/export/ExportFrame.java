@@ -1,7 +1,8 @@
 package controller.export;
 
 import controller.export.ConfirmController;
-import view.MainFrame;
+
+import view.WrapperFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,11 +15,11 @@ public class ExportFrame extends JFrame {
 
     JButton confirm = new JButton("Confirm");
     ButtonGroup buttonGroup = new ButtonGroup();
-    MainFrame mainFrame;
+    WrapperFrame wrapperFrame;
     ConfirmController confirmController;
-    public ExportFrame(MainFrame mainFrame){
+    public ExportFrame(WrapperFrame wrapperFrame){
+        this.wrapperFrame = wrapperFrame;
         initialise();
-        this.mainFrame = mainFrame;
     }
 
     public void initialise(){
@@ -68,12 +69,28 @@ public class ExportFrame extends JFrame {
         return rbJSON;
     }
 
-    public MainFrame getMainFrame() {
-        return mainFrame;
+    public ButtonGroup getButtonGroup() {
+        return buttonGroup;
     }
 
-    public void setMainFrame(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public void setButtonGroup(ButtonGroup buttonGroup) {
+        this.buttonGroup = buttonGroup;
+    }
+
+    public WrapperFrame getWrapperFrame() {
+        return wrapperFrame;
+    }
+
+    public void setWrapperFrame(WrapperFrame wrapperFrame) {
+        this.wrapperFrame = wrapperFrame;
+    }
+
+    public ConfirmController getConfirmController() {
+        return confirmController;
+    }
+
+    public void setConfirmController(ConfirmController confirmController) {
+        this.confirmController = confirmController;
     }
 
     public void setRbJSON(JRadioButton rbJSON) {

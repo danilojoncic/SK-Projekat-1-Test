@@ -52,7 +52,7 @@ public class UradiEditUpdateController {
                     System.out.println("JA NISAM PRAZAN");
                     //Cuvac.getInstance().getRaspored().getDogadjaji().add(dogadjajNovi);
                     Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
-                    Ubacivac.getInstance().ubaciBackendUTabelu(editFrame.getMainFrame(),Cuvac.getInstance().getRaspored());
+                    Ubacivac.getInstance().ubaciBackendUTabelu(editFrame.getWrapperFrame(),Cuvac.getInstance().getRaspored());
 
                 }else{
                     JOptionPane.showMessageDialog(null,"Termin je zauzet ne moze se staviti");
@@ -63,7 +63,7 @@ public class UradiEditUpdateController {
 
 
     private int vratiIndeks(){
-        return editFrame.getMainFrame().getTabelaRasporeda().getSelectedRow();
+        return editFrame.getWrapperFrame().mFrame.getTabela().getSelectedRow();
     }
 
 }

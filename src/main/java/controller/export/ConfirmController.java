@@ -46,7 +46,7 @@ public class ConfirmController {
                     PrintRequestAttributeSet set = new HashPrintRequestAttributeSet();
                     set.add(OrientationRequested.LANDSCAPE);
                     try {
-                        exportFrame.getMainFrame().getTabelaRasporeda().print(JTable.PrintMode.FIT_WIDTH,header,footer,true,set,true);
+                        exportFrame.wrapperFrame.mFrame.getTabela().print(JTable.PrintMode.FIT_WIDTH,header,footer,true,set,true);
                         JOptionPane.showMessageDialog(null,"Printed Succesfully");
                     } catch (PrinterException ex) {
                         throw new RuntimeException(ex);

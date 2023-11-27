@@ -5,11 +5,12 @@ import controller.date.IzborNedeljaController;
 import controller.date.UpaliDateFrameController;
 import controller.edit.UpaliEditFrameController;
 import controller.export.ExportController;
-import view.MainFrame;
+import view.WrapperFrame;
 
 public class ControllManager {
-    MainFrame mainFrame;
+    WrapperFrame wrapperFrame;
 
+    ZauzetostController zauzetostController;
 
     DeleteColumnController deleteCollumnController;
     ExportController exportController;
@@ -25,23 +26,24 @@ public class ControllManager {
 
     IzborNedeljaController boschSDSPlusController;
 
-    public ControllManager(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public ControllManager(WrapperFrame wrapperFrame) {
+        this.wrapperFrame = wrapperFrame;
 
         initOthers();
     }
 
     private void initOthers(){
-        upaliEditFrameController = new UpaliEditFrameController(mainFrame);
-        upaliAddFrame = new UpaliAddFrame(mainFrame);
-        deleteDogadjajController = new DeleteDogadjajController(mainFrame);
-        deleteCollumnController = new DeleteColumnController(mainFrame);
-        exportController = new ExportController(mainFrame);
-        importController = new ImportController(mainFrame);
-        filterController = new FilterController(mainFrame);
-        upaliDateFrameController = new UpaliDateFrameController(mainFrame);
-        refreshController = new RefreshController(mainFrame);
-        implementacijaController = new ImplementacijaController(mainFrame);
-        boschSDSPlusController = new IzborNedeljaController(mainFrame);
+        upaliEditFrameController = new UpaliEditFrameController(wrapperFrame);
+        upaliAddFrame = new UpaliAddFrame(wrapperFrame);
+        deleteDogadjajController = new DeleteDogadjajController(wrapperFrame);
+        deleteCollumnController = new DeleteColumnController(wrapperFrame);
+        exportController = new ExportController(wrapperFrame);
+        importController = new ImportController(wrapperFrame);
+        filterController = new FilterController(wrapperFrame);
+        upaliDateFrameController = new UpaliDateFrameController(wrapperFrame);
+        refreshController = new RefreshController(wrapperFrame);
+        implementacijaController = new ImplementacijaController(wrapperFrame);
+        boschSDSPlusController = new IzborNedeljaController(wrapperFrame);
+        zauzetostController = new ZauzetostController(wrapperFrame);
     }
 }

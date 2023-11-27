@@ -2,30 +2,30 @@ package controller;
 
 import model.boljeRijesenje.Dogadjaj;
 import org.raf.Main;
-import view.MainFrame;
+import view.WrapperFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 public class RefreshController {
-    MainFrame mainFrame;
+   WrapperFrame wrapperFrame;
 
-    public RefreshController(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public RefreshController(WrapperFrame wrapperFrame) {
+        this.wrapperFrame = wrapperFrame;
         attachListeners();
     }
 
     private void attachListeners(){
         //koristiiti samo nakon zadovoljenog filtriranja
-        this.mainFrame.getRefreshDugme().addActionListener(new ActionListener() {
+        this.wrapperFrame.mFrame.getApplyButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(mainFrame.getImp1RB().isSelected()){
-
-                }else if(mainFrame.getImp2RB().isSelected()){
-
-                }
+//                if(mainFrame.getImp1RB().isSelected()){
+//
+//                }else if(mainFrame.getImp2RB().isSelected()){
+//
+//                }
                 String text = Cuvac.getInstance().getFilterString();
                 List<Dogadjaj> filtriraniDogadjaji =  Cuvac.getInstance().getRaspored().vratiFiltrirano(text);
                 Cuvac.getInstance().getImplementacija().pretraziRaspred(text);

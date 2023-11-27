@@ -1,25 +1,26 @@
 package controller.add;
 
 import view.AddFrame;
-import view.MainFrame;
+
+import view.WrapperFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UpaliAddFrame {
-    MainFrame mainFrame;
-    public UpaliAddFrame(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    WrapperFrame wrapperFrame;
+    public UpaliAddFrame(WrapperFrame wrapperFrame) {
+        this.wrapperFrame = wrapperFrame;
         attachListeners();
     }
 
     public void attachListeners(){
-        mainFrame.getChangeDugme().addActionListener(new ActionListener() {
+        wrapperFrame.mFrame.getAddButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(mainFrame.isNestoUcitano()){
-                    new AddFrame(mainFrame);
+                if(wrapperFrame.isJesteNestoUciteno()){
+                    new AddFrame(wrapperFrame);
                 }else{
                     JOptionPane.showMessageDialog(null,"MICO MORAS PRVO RASPORED DA UCITAS!");
                 }

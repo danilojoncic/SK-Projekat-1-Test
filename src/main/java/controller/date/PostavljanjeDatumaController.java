@@ -28,7 +28,7 @@ public class PostavljanjeDatumaController {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(dateFrame.getMainFrame().isNestoUcitano()){
+                if(dateFrame.getWrapperFrame().isJesteNestoUciteno()){
                     Date date = dateFrame.getjDateChooser().getDate();
                     System.out.println("Krajni datum -> " + date.toString());
                     Cuvac.getInstance().getRaspored().setDatumDoKadaVazi(date);
@@ -44,7 +44,7 @@ public class PostavljanjeDatumaController {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if(dateFrame.getMainFrame().isNestoUcitano()){
+                if(dateFrame.getWrapperFrame().isJesteNestoUciteno()){
                     Date date = dateFrame.getjDateChooser().getDate();
                     System.out.println("Pocetni -> " + date.toString());
                     Cuvac.getInstance().getRaspored().setDatumOdKadaVazi(date);
@@ -59,7 +59,7 @@ public class PostavljanjeDatumaController {
         dateFrame.getUcitajDatumeDugme().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(dateFrame.getMainFrame().getImp1RB().isSelected()){
+                if(dateFrame.getWrapperFrame().mFrame.getFirstRadioButton().isSelected()){
                     Cuvac.getInstance().setKolonaDana(dateFrame.getjCheckBox().getSelectedIndex());
                     dateFrame.label.setText("Kolona dana je uzeta!");
                     Date od = Cuvac.getInstance().getRaspored().getDatumOdKadaVazi();
@@ -98,7 +98,7 @@ public class PostavljanjeDatumaController {
                     }
                     Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja().add("Datum");
                     Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
-                    Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getMainFrame(),Cuvac.getInstance().getRaspored());
+                    Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getWrapperFrame(),Cuvac.getInstance().getRaspored());
                     osveziComboBox();
                     for(Dogadjaj dogadjaj : Cuvac.getInstance().getRaspored().getDogadjaji()){
                         System.out.println(dogadjaj);
@@ -107,9 +107,9 @@ public class PostavljanjeDatumaController {
 
                     for (int i = 1; i <= brojMaxNedelja; i++) {
                         String unos = "Nedelja " + i;
-                        dateFrame.getMainFrame().getComboBoxZaNedelje().addItem(unos);
+                        dateFrame.getWrapperFrame().mFrame.getWeekPreviewComboBox().addItem(unos);
                     }
-                    dateFrame.getMainFrame().getComboBoxZaNedelje().setVisible(true);
+                    dateFrame.getWrapperFrame().mFrame.getWeekPreviewComboBox().setVisible(true);
                     List<Dogadjaj> tempDogadjaji = new ArrayList<>();
                     System.out.println("PRVI"+Cuvac.getInstance().getRaspored().getDogadjaji().get(Cuvac.getInstance().getRaspored().getDogadjaji().size()-1));
                     System.out.println("DRUGI" +Cuvac.getInstance().getRaspored().getDogadjaji().get(Cuvac.getInstance().getRaspored().getDogadjaji().size()-2));
@@ -142,9 +142,9 @@ public class PostavljanjeDatumaController {
                         Cuvac.getInstance().getRaspored().getDogadjaji().add(dogadjaj);
                     }
                     Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
-                    Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getMainFrame(),Cuvac.getInstance().getRaspored());
+                    Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getWrapperFrame(),Cuvac.getInstance().getRaspored());
 
-                } else if (dateFrame.getMainFrame().getImp2RB().isSelected()) {
+                } else if (dateFrame.getWrapperFrame().mFrame.getSecondRadioButton().isSelected()) {
                     Cuvac.getInstance().setKolonaDana(dateFrame.getjCheckBox().getSelectedIndex());
                     dateFrame.label.setText("Kolona dana je uzeta!");
                     Date od = Cuvac.getInstance().getRaspored().getDatumOdKadaVazi();
@@ -163,9 +163,9 @@ public class PostavljanjeDatumaController {
 
                     }
                     Cuvac.getInstance().getRaspored().refresh(Cuvac.getInstance().getRaspored().getDogadjaji());
-                    Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getMainFrame(),Cuvac.getInstance().getRaspored());
-                    dateFrame.getMainFrame().revalidate();
-                    dateFrame.getMainFrame().repaint();
+                    Ubacivac.getInstance().ubaciBackendUTabelu(dateFrame.getWrapperFrame(),Cuvac.getInstance().getRaspored());
+                    dateFrame.getWrapperFrame().revalidate();
+                    dateFrame.getWrapperFrame().repaint();
                 }
 
 
@@ -235,7 +235,7 @@ public class PostavljanjeDatumaController {
         return dateIndexMap;
     }
     public void osveziComboBox(){
-        JComboBox comboBox = dateFrame.getMainFrame().getComboBox();
+        JComboBox comboBox = dateFrame.getWrapperFrame().mFrame.getComboBox1();
 
         comboBox.removeAllItems();
         for (String date : Cuvac.getInstance().getRaspored().getHeader().getStavkeDogadjaja()) {

@@ -4,7 +4,7 @@ import com.toedter.calendar.JDateChooser;
 import controller.Cuvac;
 import controller.Ubacivac;
 import controller.date.PostavljanjeDatumaController;
-import view.MainFrame;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ import java.util.Date;
 
 public class DateFrame extends JFrame {
     public JLabel label;
-    MainFrame mainFrame;
+    WrapperFrame wrapperFrame;
     JComboBox jCheckBox;
     JButton krajniDatum;
     JButton ucitajDatumeDugme;
@@ -24,8 +24,8 @@ public class DateFrame extends JFrame {
     PostavljanjeDatumaController postavljanjeDatumaController;
     JButton pocetniDatum;
 
-    public DateFrame(MainFrame mainFrame){
-        this.mainFrame = mainFrame;
+    public DateFrame(WrapperFrame wrapperFrame){
+        this.wrapperFrame = wrapperFrame;
         initialise();
     }
 
@@ -81,12 +81,12 @@ public class DateFrame extends JFrame {
         return calendar.getTime();
     }
 
-    public MainFrame getMainFrame() {
-        return mainFrame;
+    public WrapperFrame getWrapperFrame() {
+        return wrapperFrame;
     }
 
-    public void setMainFrame(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public void setWrapperFrame(WrapperFrame wrapperFrame) {
+        this.wrapperFrame = wrapperFrame;
     }
 
     public JButton getKrajniDatum() {
