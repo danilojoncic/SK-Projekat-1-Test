@@ -29,6 +29,7 @@ import java.util.List;
 
 public class GanttChartExample extends JFrame {
     private String prviUslov = "PON";
+    private JButton refreshChanges;
     private SlobodnostController slobodnostController;
 
     private JComboBox<String> comboBoxDani;
@@ -44,6 +45,7 @@ public class GanttChartExample extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         comboBoxDani = new JComboBox<>();
+        refreshChanges = new JButton("Refresh");
         formatirajComboBox(comboBoxDani);
         IntervalCategoryDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
@@ -51,10 +53,19 @@ public class GanttChartExample extends JFrame {
         chartPanel.setPreferredSize(new Dimension(800, 600));
         mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(comboBoxDani,BorderLayout.NORTH);
+        mainPanel.add(refreshChanges,BorderLayout.SOUTH);
         mainPanel.add(chartPanel);
         this.add(mainPanel);
         slobodnostController = new SlobodnostController(this);
         this.setVisible(true);
+    }
+
+    public JButton getRefreshChanges() {
+        return refreshChanges;
+    }
+
+    public void setRefreshChanges(JButton refreshChanges) {
+        this.refreshChanges = refreshChanges;
     }
 
     public void refresh(){

@@ -22,5 +22,11 @@ public class SlobodnostController {
                 ganttChartExample.refresh();
             }
         });
+        ganttChartExample.getRefreshChanges().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ganttChartExample.refresh();
+            }
+        });
     }
 }
