@@ -7,10 +7,10 @@ import model.boljeRijesenje.Dogadjaj;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.DateAxis;
-import org.jfree.chart.axis.DateTickUnit;
-import org.jfree.chart.axis.DateTickUnitType;
+import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.CategoryItemRendererState;
 import org.jfree.chart.renderer.category.GanttRenderer;
 import org.jfree.data.category.IntervalCategoryDataset;
 import org.jfree.data.gantt.Task;
@@ -20,6 +20,7 @@ import org.jfree.data.gantt.TaskSeriesCollection;
 import javax.swing.*;
 import javax.swing.text.TabStop;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,11 +60,7 @@ public class GanttChartExample extends JFrame {
     public void refresh(){
         IntervalCategoryDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
-        chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new Dimension(800, 600));
-        mainPanel.removeAll();
-        mainPanel.add(comboBoxDani,BorderLayout.NORTH);
-        mainPanel.add(chartPanel);
+        chartPanel.setChart(chart);
         this.revalidate();
         this.repaint();
     }
@@ -174,9 +171,6 @@ public class GanttChartExample extends JFrame {
     }
     // Custom GanttRenderer to set different colors for each subtask
     private static class CustomGanttRenderer extends GanttRenderer {
-        private static final Color CHEMISTRY_COLOR = Color.GREEN;
-        private static final Color MATH_COLOR = Color.BLUE;
-
         @Override
         public Paint getItemPaint(int row, int column) {
             IntervalCategoryDataset dataset = (IntervalCategoryDataset) getPlot().getDataset();
@@ -184,13 +178,16 @@ public class GanttChartExample extends JFrame {
                 TaskSeriesCollection taskDataset = (TaskSeriesCollection) dataset;
                 TaskSeries series = taskDataset.getSeries(row);
                 Task task = series.get(column);
-
+                //za boje bi ideja bila ovakva, dalje se ostavlja na interpretaciji korisnika
                 if (task.getDescription() != null) {
                     switch (task.getDescription()) {
-                        case "Chemistry":
-                            return CHEMISTRY_COLOR;
-                        case "Math":
-                            return MATH_COLOR;
+                        case "Skript jezici":
+                            return Color.red;
+                        case "Softverske komponente":
+                            return Color.blue;
+                        case "Programski prevodioci":
+                            return Color.MAGENTA;
+
                         // Add more cases for other subtasks as needed
                     }
                 }
@@ -200,6 +197,10 @@ public class GanttChartExample extends JFrame {
             return super.getItemPaint(row, column);
         }
     }
+
+
+
+
 
     public SlobodnostController getSlobodnostController() {
         return slobodnostController;
